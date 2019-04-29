@@ -1,6 +1,16 @@
 # cacti-auto-install
-This is an auto installation bash script currently written for ubuntu/debian
-I have plans to also include centos/rhel systems as well
+This script is a semi-auto script that allows you to customize your cacti installation 
+such as select the database name/password and install directory 
 
-This is in very alpa state so I would not suggest to run this on a prod system 
+I will eventually have a full auto option as well populdated with the default values
+
+this is currently written for debian/ubuntu but I am working on a centos/rhel script as well
+
+This script is not finished yet 
+
+TODO 
+
+auto populate details in config.php
+auto download plugins
+
 
