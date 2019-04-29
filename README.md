@@ -10,7 +10,8 @@ This script is not finished yet
 
 TODO 
 
-auto populate details in config.php
-auto download plugins
+auto populate details in config.php<br>
+auto download plugins<br>
+
 
 
