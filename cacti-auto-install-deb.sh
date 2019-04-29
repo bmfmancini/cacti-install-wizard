@@ -38,6 +38,8 @@ fi
 
 #Specify user password and run mysql_secure_installation Credit goes to  https://stackoverflow.com/questions/24270733/automate-mysql-secure-installation-with-echo-command-via-a-shell-script
 
+##Broken need to debug
+
 echo "specify a root password for mysql root user"
 read dbpwd
 
@@ -52,7 +54,7 @@ mysql -e "DROP DATABASE test"
 # Make our changes take effect
 mysql -e "FLUSH PRIVILEGES"
 # Any subsequent tries to run queries this way will get access denied because lack of usr/pwd param
-
+#end of brokeness
 
 
 #Create mysql db
