@@ -46,7 +46,7 @@ echo "Enter your PHP time zone i.e America/Toronto "
 read timezone
 echo "date.timezone =" $timezone >> /etc/php/7.0/fpm/php.ini 
 echo "date.timezone =" $timezone >> /etc/php/7.0/cli/php.ini 
-echo "date.timezone =" $timezone >> /etc/php/7.0/web/php.ini
+echo "date.timezone =" $timezone >> /etc/php/7.0/apache2/php.ini
 
 #move cacti install to chose directory
 
@@ -104,12 +104,13 @@ then
 mysql -uroot <<MYSQL_SCRIPT
 CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
 GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'cacti'; ;
+GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
 #pre populate cacti db
 mysql -u root  cacti < $location/cacti/cacti.sql
-mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root  mysql
 
 sed -i -e 's@^$database_type.*@$database_type = "mysql";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_default.*@$database_default = "cacti";@g' /var/www/html/cacti/include/config.php
@@ -122,6 +123,8 @@ sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
 
 
 else
+###BUG need to check
+
 echo "enter db name"
 read customdbname
 echo "enter db user"
@@ -131,9 +134,10 @@ read customdbpassword
 
 
 
-mysql -uroot <<MYSQL_SCRIPT
+mysql -u root <<MYSQL_SCRIPT
 CREATE DATABASE $customdbname;
-GRANT ALL PRIVILEGES ON $customdbname.* TO '$customdbuser'@'localhost' IDENTIFIED BY '$customdbpass'; ;
+GRANT ALL PRIVILEGES ON $customdbname.* TO '$customdbuser'@'localhost' IDENTIFIED BY '$customdbpass';
+GRANT SELECT ON mysql.time_zone_name TO $customdbuser@localhost;
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
@@ -150,6 +154,6 @@ sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
 
 fi
 
-echo $customdbname
-echo $customdbuser
-echo $customdbpass
+##restarting services 
+systemctl restart apache2
+systemctl restart mysql-server
