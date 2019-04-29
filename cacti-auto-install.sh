@@ -158,3 +158,14 @@ fi
 ##restarting services 
 systemctl restart apache2
 
+
+echo "cacti has been installed would you like to download some plugins? enter yes otherwise hit enter to skip"
+read pluginsanswer
+if [pluginsanswer == "yes"]
+then 
+echo " this script can download the following plugins \
+monitor
+thold"
+else 
+exit 1
+fi
