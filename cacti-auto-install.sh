@@ -141,11 +141,12 @@ GRANT SELECT ON mysql.time_zone_name TO $customdbuser@localhost;
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
+##Need to fix this does not end up properly in config.php
 sed -i -e 's@^$database_type.*@$database_type = "mysql";@g' $location/cacti/include/config.php
-sed -i -e 's@^$database_default.*@$database_default = "$customdbname";@g' $location/cacti/include/config.php
+sed -i -e 's@^$database_default.*@$database_default = $customdbname;@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_hostname.*@$database_hostname = "127.0.0.1";@g' $location/cacti/include/config.php
-sed -i -e 's@^$database_username.*@$database_username = "$customdbname";@g' $location/cacti/include/config.php
-sed -i -e 's@^$database_password.*@$database_password = "customdbpassword";@g' $location/cacti/include/config.php
+sed -i -e 's@^$database_username.*@$database_username = $customdbname;@g' $location/cacti/include/config.php
+sed -i -e 's@^$database_password.*@$database_password = customdbpassword;@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' $location/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
@@ -156,4 +157,4 @@ fi
 
 ##restarting services 
 systemctl restart apache2
-systemctl restart mysql-server
+
