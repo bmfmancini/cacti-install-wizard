@@ -59,6 +59,18 @@ else
 mv cacti $location
 fi
 
+#Create cacti user and change permission of directory
+echo "Which user would you like to run Cacti under (Default is www-data)"
+read user
+if [$user == ""]
+then  
+echo  "cacti will be run under www-data"
+chown -R www-data:www-data cacti
+else 
+useradd $user
+chown -R $user:$user
+fi
+
 
 #assign permissions
 
