@@ -34,7 +34,7 @@ echo "will you be using the spine poller enter 1 for yes 2 for no"
 read answer
 if [ $answer == "1" ]
 then
-apt-get  install -y build-essential dos2unix dh-autoreconf help2man libssl-dev libmysql++-dev  librrds-perl libsnmp-dev libmysqlcli$
+apt-get  install -y build-essential dos2unix dh-autoreconf libtool  help2man libssl-dev libmysql++-dev  librrds-perl libsnmp-dev 
 else
 echo "spine dependecies  will not be installed"
 fi                                                       
@@ -172,15 +172,14 @@ chown -R $user:$user monitor
 mv thold $location/cacti/plugins
 mv monitor $location/cacti/plugins
 else
-
 echo "plugins will not be installed"
+fi
 
-if [$answer == 1]
+
+
+if [ $answer == "1" ]
 then 
-echo "you selected that you are using the spine poller we will now download and compile it"
-if [$version == ""] 
-then
-echo "downloading latest spine"
+echo "downloading and compling spine"
 git clone https://github.com/Cacti/spine.git
 cd spine
 ./bootstrap
@@ -189,9 +188,4 @@ make
 make install
 chown root:root /usr/local/spine/bin/spine
 chmod u+s /usr/local/spine/bin/spine
-
-
-
-
 fi
-
