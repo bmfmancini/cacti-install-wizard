@@ -128,13 +128,6 @@ database password cacti"
 
 ###Adding mariadb tuning 
 
-echo 'innodb_flush_log_at_timeout = 4" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo 'innodb_read_io_threads = 34"   >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo 'innodb_write_io_threads = 17" >> /etc/mysql/mariadb.conf.d/50-server.cnf
-echo 'max_heap_table_size = 70M"    >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo 'tmp_table_size = 70M"         >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo 'join_buffer_size = 130M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo 'innodb_buffer_pool_size = 250M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 systemctl restart mysql
 
@@ -172,6 +165,16 @@ sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
 
 
 fi
+##Adding Maria DB conf 
+echo "innodb_flush_log_at_timeout = 4" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_read_io_threads = 34"   >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_write_io_threads = 17" >> /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "max_heap_table_size = 70M"    >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "tmp_table_size = 70M"         >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "join_buffer_size = 130M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_buffer_pool_size = 250M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+
+
 
 ##restarting services 
 systemctl restart apache2
@@ -179,7 +182,7 @@ systemctl restart apache2
 
 echo "this script can download the following plugins monitor,thold would you like to install them ?"
 read plugins
-if [ $plugins == 'yes' ]
+if [ $plugins == "yes" ]
 then
 git clone https://github.com/Cacti/plugin_thold.git
 git clone https://github.com/Cacti/plugin_monitor.git
