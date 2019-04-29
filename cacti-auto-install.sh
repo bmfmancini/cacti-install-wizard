@@ -166,6 +166,34 @@ then
 echo " this script can download the following plugins \
 monitor
 thold"
+echo "would you like to download all of these plugins ?"
+read plugins
+if [plugins == "yes"]
+then
+https://github.com/Cacti/plugin_thold.git
+https://github.com/Cacti/plugin_monitor.git
+mv plugin_thold thold
+mv plugin_monitor monitor
+chown -R $user:$user thold
+chown -R $user:$user monitor
+mv thold $location/cacti/plugins
+mv monitor $location/cacti/plugins
+
 else 
+echo "would you like to download a single plugin ?"
+echo "enter 1 for Monitor enter 2 for thold"
+read pluginnumber
+if [pluginnumber == 1]
+https://github.com/Cacti/plugin_monitor.git
+chown -R $user:$user monitor
+mv monitor $location/cacti/plugins
+
+if [pluginnumber == 2]
+https://github.com/Cacti/plugin_thold.git
+chown -R $user:$user thold
+mv plugin_thold thold
+
+else
 exit 1
+
 fi
