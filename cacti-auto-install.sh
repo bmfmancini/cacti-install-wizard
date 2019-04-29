@@ -126,6 +126,18 @@ echo "database name cacti\n
 database username cacti\n
 database password cacti"
 
+###Adding mariadb tuning 
+
+echo 'innodb_flush_log_at_timeout = 4" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo 'innodb_read_io_threads = 34"   >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo 'innodb_write_io_threads = 17" >> /etc/mysql/mariadb.conf.d/50-server.cnf
+echo 'max_heap_table_size = 70M"    >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo 'tmp_table_size = 70M"         >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo 'join_buffer_size = 130M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo 'innodb_buffer_pool_size = 250M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+
+systemctl restart mysql
+
 
 
 else
