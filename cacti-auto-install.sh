@@ -179,19 +179,6 @@ chown -R $user:$user monitor
 mv thold $location/cacti/plugins
 mv monitor $location/cacti/plugins
 
-else 
-echo "would you like to download a single plugin ?"
-echo "enter 1 for Monitor enter 2 for thold"
-read pluginnumber
-if [pluginnumber == 1]
-https://github.com/Cacti/plugin_monitor.git
-chown -R $user:$user monitor
-mv monitor $location/cacti/plugins
-
-if [pluginnumber == 2]
-https://github.com/Cacti/plugin_thold.git
-chown -R $user:$user thold
-mv plugin_thold thold
 
 else
 exit 1
