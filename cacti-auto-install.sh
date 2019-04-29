@@ -64,7 +64,7 @@ fi
 
 
 #Create cacti user and change permission of directory
-echo "Which user would you like to run Cacti under (Default is www-data)"
+echo "Which user would you like to run Cacti under (Default is www-data) hit enter for default"
 read user
 if [$user == ""]
 then 
@@ -95,7 +95,7 @@ cp $location/cacti/include/config.php.dist $location/cacti/include/config.php
 
 
 ##Create database 
-echo "would you like to customize the database name and user ? enter yes or no"
+echo "would you like to customize the database name and user ? hit enter for defaults"
 read customize
 
 if [$customize == ""] 
@@ -120,6 +120,12 @@ sed -i -e 's@^$database_password.*@$database_password = "cacti";@g' /var/www/htm
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
+
+echo "default database setup with following details"
+echo "database name cacti\n
+database username cacti\n
+database password cacti"
+
 
 
 else
