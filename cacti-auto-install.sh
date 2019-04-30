@@ -59,8 +59,6 @@ echo "date.timezone =" $timezone >> /etc/php/7.0/cli/php.ini
 echo "date.timezone =" $timezone >> /etc/php/7.0/apache2/php.ini
 
 #move cacti install to chosen  directory
-ls -lah
-sleep 5
 
 
 echo "Where would you like to install cacti default location is /var/www/html hit enter for default location"
