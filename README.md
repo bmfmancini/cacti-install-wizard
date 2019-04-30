@@ -1,4 +1,15 @@
-Cacti server setup wizard
+Cacti server setup wizard <br>
+
+this script requires git and unzip<br>
+
+To use the script <br>
+git clone https://github.com/bmfmancini/cacti-auto-install.git <br>
+cd cacti-auto-install <br>
+chmod +x cacti-setup-wizard.sh <br>
+./cacti-setup-wizard.sh <br>
+
+
+
 
 - features are
 
