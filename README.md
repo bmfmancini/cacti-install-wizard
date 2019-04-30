@@ -1,17 +1,25 @@
-# cacti-auto-install
-This script is a semi-auto script that allows you to customize your cacti installation 
-such as select the database name/password and install directory 
+Cacti server setup wizard
 
-I will eventually have a full auto option as well populdated with the default values
+- features are
 
-this is currently written for debian/ubuntu but I am working on a centos/rhel script as well
-
-This script is not finished yet 
+-download either chosen or latest version of cacti<br>
+-autoconfigure database either with defaults or chose credentials<br>
+-auto tunes MariaDB using cacti recommended settings<br>
+-auto-populates cacti database<br>
+-downloads all needed packages for cacti install<br>
+-asks if you want to install spine if so it will automatically compile it<br>
+-adds system user and assigns permissions to folders<br>
+-downloads and installs plugins<br>
 
 TODO 
 
-auto populate details in config.php<br>
-auto download plugins<br>
+Debug
+Add more plugins to download option
+add option to select specific plugins from list
+Document script
+
+
+
 
 
 
