@@ -118,6 +118,7 @@ mysql -uroot <<MYSQL_SCRIPT
 CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
 GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'cacti'; ;
 GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;
+ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
@@ -158,6 +159,7 @@ mysql -u root <<MYSQL_SCRIPT
 CREATE DATABASE $customdbname;
 GRANT ALL PRIVILEGES ON $customdbname.* TO '$customdbuser'@'localhost' IDENTIFIED BY '$customdbpass';
 GRANT SELECT ON mysql.time_zone_name TO $customdbuser@localhost;
+ALTER DATABASE $customdbname CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
