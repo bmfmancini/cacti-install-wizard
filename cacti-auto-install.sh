@@ -35,6 +35,15 @@ read answer
 if [ $answer == "1" ]
 then
 apt-get  install -y build-essential dos2unix dh-autoreconf libtool  help2man libssl-dev libmysql++-dev  librrds-perl libsnmp-dev 
+echo "downloading and compling spine"
+git clone https://github.com/Cacti/spine.git
+cd spine
+./bootstrap
+./configure
+make
+make install
+chown root:root /usr/local/spine/bin/spine
+chmod u+s /usr/local/spine/bin/spine
 else
 echo "spine dependecies  will not be installed"
 fi                                                       
