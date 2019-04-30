@@ -225,3 +225,8 @@ echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/
 ##Restarting services for refresh
  systemctl restart mysql
   systemctl restart apache2
+
+
+echo "Cacti installation complete !"
+
+
