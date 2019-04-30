@@ -142,7 +142,6 @@ database password cacti"
 
 
 else
-###BUG need to check
 
 echo "enter db name"
 read customdbname
@@ -161,7 +160,6 @@ ALTER DATABASE $customdbname CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
-##Need to fix this does not end up properly in config.php
 sed -i -e 's@^$database_type.*@$database_type = "mysql";@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_default.*@$database_default = '$customdbname'\;@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_hostname.*@$database_hostname = "127.0.0.1";@g' $location/cacti/include/config.php
@@ -190,9 +188,9 @@ echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 
-echo "this script can download the following plugins monitor,thold would you like to install them ?"
+echo "this script can download the following plugins monitor,thold would you like to install them  ? type yes to download hit enter to skip"
 read plugins
-if [ $plugins == "yes" ]
+if [$plugins == "yes"]
 then
 git clone https://github.com/Cacti/plugin_thold.git
 git clone https://github.com/Cacti/plugin_monitor.git
@@ -206,6 +204,12 @@ else
 echo "plugins will not be installed"
 fi
 
+
+
+####Create cron for cacti user
+
+touch /etc/cron.d/$user
+echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/cron.d/$user 
 
 
 ##Restarting services for refresh
