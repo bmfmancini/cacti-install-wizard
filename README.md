@@ -14,8 +14,8 @@ Cacti server setup wizard
 TODO 
 
 Debug
-Add more plugins to download option
-add option to select specific plugins from list
+Add more plugins to download option<br>
+add option to select specific plugins from list<br>
 Document script
 
 
