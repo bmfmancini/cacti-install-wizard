@@ -8,6 +8,12 @@ echo "Dont forget to support cacti @ cacti.net!"
 
 
 #Download chosen release
+echo "here are some of the current cacti release versions \n
+release/1.2.3
+release/1.2.2
+release/1.2.1
+release/1.2.0
+"
 
 echo  "which release would you like to download ? Hit enter for latest"
 read version
@@ -23,6 +29,8 @@ unzip $version
 mv cacti-release-$version cacti
 fi
 
+##Download required packages for cacti
+
 echo "cacti requires a LAMP stack as well as some required plugins we will now install the required packages"
 apt-get update
 apt-get  install -y apache2 rrdtool mariadb-server snmp snmpd php7.0 php-mysql  php7.0-snmp php7.0-xml php7.0-mbstring php7.0-json php7.0-gd php7.0-gmp php7.0-zip php7.0-ldap php7.0-mc
@@ -34,6 +42,7 @@ echo "will you be using the spine poller enter 1 for yes 2 for no"
 read answer
 if [ $answer == "1" ]
 then
+##Download packages needed for spine
 apt-get  install -y build-essential dos2unix dh-autoreconf libtool  help2man libssl-dev libmysql++-dev  librrds-perl libsnmp-dev 
 echo "downloading and compling spine"
 git clone https://github.com/Cacti/spine.git
@@ -51,7 +60,7 @@ fi
 
 
 
-
+##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto "
 read timezone
 echo "date.timezone =" $timezone >> /etc/php/7.0/fpm/php.ini 
@@ -88,7 +97,7 @@ chown -R $user:$user $location/cacti
 fi
 
 
-#assign permissions
+#assign permissions for cacti installation
 
 chown -R $user.$user $location/cacti/resource/snmp_queries/          
 chown -R $user.$user $location/cacti/resource/script_server/
@@ -138,7 +147,7 @@ echo "database name cacti\n
 database username cacti\n
 database password cacti"
 
-###Adding mariadb tuning 
+###Adding mariadb tuning suggested by the cacti team
 
 
 else
@@ -188,21 +197,22 @@ echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 
-echo "this script can download the following plugins monitor,thold would you like to install them  ? type yes to download hit enter to skip"
+echo "this script can download the following plugins monitor,thold would you like to install them  ?\n
+type yes to download hit enter to skip"
 read plugins
-if [$plugins == "yes"]
-then
-git clone https://github.com/Cacti/plugin_thold.git
-git clone https://github.com/Cacti/plugin_monitor.git
+ if [$plugins == "yes"]
+  then
+   git clone https://github.com/Cacti/plugin_thold.git
+    git clone https://github.com/Cacti/plugin_monitor.git
 mv plugin_thold thold
-mv plugin_monitor monitor
-chown -R $user:$user thold
-chown -R $user:$user monitor
-mv thold $location/cacti/plugins
-mv monitor $location/cacti/plugins
+  mv plugin_monitor monitor
+   chown -R $user:$user thold
+    chown -R $user:$user monitor
+     mv thold $location/cacti/plugins
+      mv monitor $location/cacti/plugins
 else
-echo "plugins will not be installed"
-fi
+ echo "plugins will not be installed"
+  fi
 
 
 
@@ -213,5 +223,5 @@ echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/
 
 
 ##Restarting services for refresh
-systemctl restart mysql
-systemctl restart apache2
+ systemctl restart mysql
+  systemctl restart apache2
