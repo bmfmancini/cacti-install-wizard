@@ -57,7 +57,7 @@ echo "date.timezone =" $timezone >> /etc/php/7.0/fpm/php.ini
 echo "date.timezone =" $timezone >> /etc/php/7.0/cli/php.ini 
 echo "date.timezone =" $timezone >> /etc/php/7.0/apache2/php.ini
 
-#move cacti install to chose directory
+#move cacti install to chosen  directory
 
 echo "Where would you like to install cacti default location is /var/www/html hit enter for default location"
 read location
@@ -138,10 +138,6 @@ database password cacti"
 ###Adding mariadb tuning 
 
 
-systemctl restart mysql
-
-
-
 else
 ###BUG need to check
 
@@ -163,12 +159,12 @@ MYSQL_SCRIPT
 
 ##Need to fix this does not end up properly in config.php
 sed -i -e 's@^$database_type.*@$database_type = "mysql";@g' $location/cacti/include/config.php
-sed -i -e 's@^$database_default.*@$database_default = $customdbname;@g' $location/cacti/include/config.php
+sed -i -e 's@^$database_default.*@$database_default = "$customdbname";@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_hostname.*@$database_hostname = "127.0.0.1";@g' $location/cacti/include/config.php
-sed -i -e 's@^$database_username.*@$database_username = $customdbname;@g' $location/cacti/include/config.php
-sed -i -e 's@^$database_password.*@$database_password = customdbpassword;@g' $location/cacti/include/config.php
-sed -i -e 's@^$database_port.*@$database_port = "3306";@g' $location/cacti/include/config.php
-sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' $location/cacti/include/config.php
+sed -i -e 's@^$database_username.*@$database_username = "$customdbname";@g' $location/cacti/include/config.php
+sed -i -e 's@^$database_password.*@$database_password = "$customdbpassword";@g' $location/cacti/include/config.php
+sed -i -e 's@^$database_port.*@$database_port = "3306";@g' "$location"/cacti/include/config.php
+sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
 
 
@@ -182,11 +178,12 @@ echo "max_heap_table_size = 70M"    >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "tmp_table_size = 70M"         >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "join_buffer_size = 130M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_buffer_pool_size = 250M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_io_capacity = 5000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_io_capacity_max = 10000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_file_format = Barracuda" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 
-##restarting services 
-systemctl restart apache2
 
 
 echo "this script can download the following plugins monitor,thold would you like to install them ?"
@@ -207,15 +204,6 @@ fi
 
 
 
-if [ $answer == "1" ]
-then 
-echo "downloading and compling spine"
-git clone https://github.com/Cacti/spine.git
-cd spine
-./bootstrap
-./configure
-make
-make install
-chown root:root /usr/local/spine/bin/spine
-chmod u+s /usr/local/spine/bin/spine
-fi
+##Restarting services for refresh
+systemctl restart mysql
+systemctl restart apache2
