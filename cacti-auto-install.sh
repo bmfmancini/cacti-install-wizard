@@ -44,6 +44,7 @@ make
 make install
 chown root:root /usr/local/spine/bin/spine
 chmod u+s /usr/local/spine/bin/spine
+cd ..
 else
 echo "spine dependecies  will not be installed"
 fi                                                       
@@ -58,6 +59,9 @@ echo "date.timezone =" $timezone >> /etc/php/7.0/cli/php.ini
 echo "date.timezone =" $timezone >> /etc/php/7.0/apache2/php.ini
 
 #move cacti install to chosen  directory
+ls -lah
+sleep 5
+
 
 echo "Where would you like to install cacti default location is /var/www/html hit enter for default location"
 read location
@@ -181,7 +185,7 @@ echo "innodb_buffer_pool_size = 250M" >>  /etc/mysql/mariadb.conf.d/50-server.cn
 echo "innodb_io_capacity = 5000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_io_capacity_max = 10000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_file_format = Barracuda" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-
+echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 
