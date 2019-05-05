@@ -163,16 +163,30 @@ read customdbpassword
 
 mysql -u root <<MYSQL_SCRIPT
 CREATE DATABASE $customdbname;
-GRANT ALL PRIVILEGES ON $customdbname.* TO '$customdbuser'@'localhost' IDENTIFIED BY '$customdbpass';
+GRANT ALL PRIVILEGES ON $customdbname.* TO '$customdbuser'@'localhost' IDENTIFIED BY '$customdbpassword';
 GRANT SELECT ON mysql.time_zone_name TO $customdbuser@localhost;
 ALTER DATABASE $customdbname CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
 
+echo "Pre-populating cacti DB"
+mysql -u root  $customdbname < $location/cacti/cacti.sql
+
+
+#CREATE DATABASE $customdbname  CHARACTER SET utf8 COLLATE utf8_general_ci";
+#CREATE USER $customdbuser@'127.0.0.1' IDENTIFIED BY '$customdbpassword'";
+#GRANT ALL PRIVILEGES ON  $customdbname.* TO '$customdbuser'@'127.0.0.1'";
+
+
+
+
+
+
+
 sed -i -e 's@^$database_type.*@$database_type = "mysql";@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_default.*@$database_default = '$customdbname'\;@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_hostname.*@$database_hostname = "127.0.0.1";@g' $location/cacti/include/config.php
-sed -i -e 's@^$database_username.*@$database_username = '$customdbname';@g' $location/cacti/include/config.php
+sed -i -e 's@^$database_username.*@$database_username = '$customdbuser';@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_password.*@$database_password = '$customdbpassword';@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' "$location"/cacti/include/config.php
@@ -197,7 +211,7 @@ echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 
-echo "this script can download the following plugins monitor,thold would you like to install them  ?\n
+echo "this script can download the following plugins monitor,thold would you like to install them  ?
 type yes to download hit enter to skip"
 read plugins
  if [ $plugins == "yes" ]
@@ -222,7 +236,7 @@ touch /etc/cron.d/$user
 echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/cron.d/$user 
 
 
-##Restarting services for refresh
+echo "restarting Mysqldb and Apache server for service refresh"
  systemctl restart mysql
   systemctl restart apache2
 
