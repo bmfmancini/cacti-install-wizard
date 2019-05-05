@@ -171,7 +171,7 @@ MYSQL_SCRIPT
 
 echo "Pre-populating cacti DB"
 mysql -u root  $customdbname < $location/cacti/cacti.sql
-
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root  mysql
 
 #CREATE DATABASE $customdbname  CHARACTER SET utf8 COLLATE utf8_general_ci";
 #CREATE USER $customdbuser@'127.0.0.1' IDENTIFIED BY '$customdbpassword'";
