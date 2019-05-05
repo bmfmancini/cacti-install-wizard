@@ -118,7 +118,7 @@ cp $location/cacti/include/config.php.dist $location/cacti/include/config.php
 echo "would you like to customize the database name and user ? hit enter for defaults"
 read customize
 
-if [$customize == ""] 
+if [ $customize == "" ] 
 then
 
 mysql -uroot <<MYSQL_SCRIPT
@@ -200,7 +200,7 @@ echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "this script can download the following plugins monitor,thold would you like to install them  ?\n
 type yes to download hit enter to skip"
 read plugins
- if [$plugins == "yes"]
+ if [ $plugins == "yes" ]
   then
    git clone https://github.com/Cacti/plugin_thold.git
     git clone https://github.com/Cacti/plugin_monitor.git
