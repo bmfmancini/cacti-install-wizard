@@ -1,5 +1,27 @@
 #!/bin/bash
 
+##Author Sean Mancini
+#www.seanmancini.com
+
+##Purpose this script will facilitate the installation of Cacti along with all supporting binaries 
+#this script will also ensure that proper configurations are put in place to get up and running with cacti
+
+##Dont forget to checkout cacti @ www.cacti.net
+
+#    This program is free software: you can redistribute it and/or modify#
+#    it under the terms of the GNU General Public License as published by#
+#    the Free Software Foundation, either version 3 of the License, or#
+#    (at your option) any later version.#
+#    This program is distributed in the hope that it will be useful,#
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of#
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the#
+#    GNU General Public License for more details.#
+#    You should have received a copy of the GNU General Public License#
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.#
+
+
+
+
 
 
 echo "This script will download all Cacti dependecies and download the chosen cacti version from the cacti github"
