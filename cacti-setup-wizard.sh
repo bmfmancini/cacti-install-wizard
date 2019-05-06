@@ -85,13 +85,12 @@ fi
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [$timezone == ""] then
-
+if [$timezone == ""] 
+then
 
 echo "date.timezone =" US/Central  >> /etc/php/7.0/fpm/php.ini 
 echo "date.timezone =" US/Central  >> /etc/php/7.0/cli/php.ini 
 echo "date.timezone =" US/Central >> /etc/php/7.0/apache2/php.ini
-
 
 else
 
@@ -100,6 +99,7 @@ echo "date.timezone =" $timezone >> /etc/php/7.0/fpm/php.ini
 echo "date.timezone =" $timezone >> /etc/php/7.0/cli/php.ini 
 echo "date.timezone =" $timezone >> /etc/php/7.0/apache2/php.ini
 
+fi 
 #move cacti install to chosen  directory
 
 
@@ -151,13 +151,14 @@ cp $location/cacti/include/config.php.dist $location/cacti/include/config.php
 echo "would you like to customize the database name and user ? hit enter for defaults"
 read customize
 
-if [ $customize == "" ] 
+if [[ $customize = "" ]] 
 then
 
 mysql -uroot <<MYSQL_SCRIPT
 CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
 GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'cacti'; ;
 GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;
+USE mysql;
 ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 FLUSH PRIVILEGES;
 MYSQL_SCRIPT
