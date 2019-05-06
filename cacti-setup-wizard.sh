@@ -176,6 +176,8 @@ sed -i -e 's@^$database_port.*@$database_port = "3306";@g' /var/www/html/cacti/i
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
 
+
+
 echo "default database setup with following details"
 echo "database name cacti\n
 database username cacti\n
@@ -211,9 +213,6 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root  mysql
 
 
 
-
-
-
 sed -i -e 's@^$database_type.*@$database_type = "mysql";@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_default.*@$database_default = '$customdbname'\;@g' $location/cacti/include/config.php
 sed -i -e 's@^$database_hostname.*@$database_hostname = "127.0.0.1";@g' $location/cacti/include/config.php
@@ -222,6 +221,9 @@ sed -i -e 's@^$database_password.*@$database_password = '$customdbpassword';@g' 
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
+
+
+
 
 
 
@@ -238,6 +240,12 @@ echo "innodb_io_capacity = 5000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_io_capacity_max = 10000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_file_format = Barracuda" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+
+
+
+###Adding recomended PHP settings 
+sed -e 's/max_execution_time = 30/max_execution_time = 60/' -i /etc/php/7.0/apache2/php.ini
+sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/7.0/apache2/php.ini
 
 
 
