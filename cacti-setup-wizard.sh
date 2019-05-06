@@ -186,13 +186,7 @@ echo "database name cacti\n
 database username cacti\n
 database password cacti"
 
-####Make Spine.conf file     
 
-echo "DB_Host  localhost " >> /etc/spine.conf
-echo "DB_Database  cacti"  >> /etc/spine.conf
-echo "DB_User  cacti"  >> /etc/spine.conf
-echo "DB_Pass  cacti" >> /etc/spine.conf
-echo "DB_Port  3306" >> /etc/spine.conf
 
 
 
@@ -288,13 +282,7 @@ echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/
 
 
 
-####Make Spine.conf file
 
-echo "DB_Host localhost" >> /etc/spine.conf
-echo "DB_Database $customdbname" >> /etc/spine.conf
-echo "DB_User $customdbuser" >> /etc/spine.conf
-echo "DB_Pass $customdbpassword" >> /etc/spine.conf
-echo "DB_Port 3306" >> /etc/spine.conf
 
 
 
