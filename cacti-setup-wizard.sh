@@ -76,6 +76,7 @@ make install
 chown root:root /usr/local/spine/bin/spine
 chmod u+s /usr/local/spine/bin/spine
 cd ..
+
 else
 echo "spine dependecies  will not be installed"
 fi                                                       
@@ -178,12 +179,22 @@ sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
 
 
 
+
+
 echo "default database setup with following details"
 echo "database name cacti\n
 database username cacti\n
 database password cacti"
 
-###Adding mariadb tuning suggested by the cacti team
+####Make Spine.conf file     
+
+echo "DB_Host  localhost " >> /etc/spine.conf
+echo "DB_Database  cacti"  >> /etc/spine.conf
+echo "DB_User  cacti"  >> /etc/spine.conf
+echo "DB_Pass  cacti" >> /etc/spine.conf
+echo "DB_Port  3306" >> /etc/spine.conf
+
+
 
 
 else
@@ -221,6 +232,7 @@ sed -i -e 's@^$database_password.*@$database_password = '$customdbpassword';@g' 
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
+
 
 
 
@@ -275,9 +287,27 @@ touch /etc/cron.d/$user
 echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/cron.d/$user 
 
 
+
+####Make Spine.conf file
+
+echo "DB_Host localhost" >> /etc/spine.conf
+echo "DB_Database $customdbname" >> /etc/spine.conf
+echo "DB_User $customdbuser" >> /etc/spine.conf
+echo "DB_Pass $customdbpassword" >> /etc/spine.conf
+echo "DB_Port 3306" >> /etc/spine.conf
+
+
+
+
 echo "restarting Mysqldb and Apache server for service refresh"
  systemctl restart mysql
   systemctl restart apache2
+
+
+
+
+
+
 
 
 echo "Cacti installation complete !"
