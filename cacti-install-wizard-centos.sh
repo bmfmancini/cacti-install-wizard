@@ -96,7 +96,7 @@ yum-config-manager --enable remi-php72
 
 echo "Downloading PHP modules needed for Cacti install"
 
-yum install  -y rrdtool mariadb-server net-snmp-utils snmp snmpd php php-mysql  php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap php-mc php-posix 
+yum install  -y rrdtool mariadb-server net-snmp-utils net-snmp  snmpd php php-mysql  php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap php-mc php-posix 
 
 
 
