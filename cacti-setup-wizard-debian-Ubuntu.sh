@@ -263,16 +263,30 @@ read plugins
   then
    git clone https://github.com/Cacti/plugin_thold.git
     git clone https://github.com/Cacti/plugin_monitor.git
+
 mv plugin_thold thold
   mv plugin_monitor monitor
    chown -R $user:$user thold
     chown -R $user:$user monitor
      mv thold $location/cacti/plugins
       mv monitor $location/cacti/plugins
+
+
+
+
 else
  echo "plugins will not be installed"
   fi
 
+
+
+echo "Would you like to download my RRD Monitoring script ? type yes to download hit enter to skip "
+read mon_script
+if [ $mon_script == "yes" ]
+  then
+  git clone  https://github.com/bmfmancini/rrd-monitor.git
+      else
+       echo "Script will not be downloaded"
 
 
 ####Create cron for cacti user
