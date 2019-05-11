@@ -91,12 +91,12 @@ echo "On Centos systems we need to enable EPEL repos"
 yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
 yum install yum-utils -y
 yum-config-manager --enable remi-php72
-yum update
+
 
 
 echo "Downloading PHP modules needed for Cacti install"
 
-yum install  -y rrdtool mariadb-server snmp snmpd php php-mysql  php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap php-mc php-posix 
+yum install  -y rrdtool mariadb-server net-snmp-utils snmp snmpd php php-mysql  php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap php-mc php-posix 
 
 
 
@@ -318,5 +318,6 @@ echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/
 
 
 
-##refresh httpd service
+echo "refreshing services"
 systemctl restart httpd
+systemctl restart mariadb
