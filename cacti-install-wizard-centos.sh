@@ -28,6 +28,10 @@ echo "This script will download all Cacti dependecies and download the chosen ca
 echo "Dont forget to support cacti @ cacti.net!"
 
 
+echo "set selinux to disabled"
+setenforce 0 
+sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config
+
 
 #Download chosen release
 echo "here are some of the current cacti release versions \n
@@ -50,6 +54,37 @@ wget https://github.com/Cacti/cacti/archive/release/$version.zip
 unzip $version 
 mv cacti-release-$version cacti
 fi
+
+
+
+
+echo "will you be using the spine poller enter 1 for yes 2 for no"
+read answer
+if [ $answer == "1" ]
+then
+##Download packages needed for spine
+yum install -y gcc mysql-devel net-snmp-devel autoconf automake libtool dos2unix help2man
+echo "downloading and compling spine"
+git clone https://github.com/Cacti/spine.git
+cd spine
+./bootstrap
+./configure
+make
+make install
+chown root:root /usr/local/spine/bin/spine
+chmod u+s /usr/local/spine/bin/spine
+cd ..
+
+else
+echo "spine dependecies  will not be installed"
+fi
+
+
+
+
+
+
+
 
 
 echo "On Centos systems we need to enable EPEL repos"
