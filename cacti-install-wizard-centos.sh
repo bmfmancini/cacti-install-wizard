@@ -44,12 +44,13 @@ release/1.2.0
 echo  "which release would you like to download ? Hit enter for latest"
 read version
 
-if  ["$version" == ""]
+if  [ "$version" == "" ]
 then
 git clone https://github.com/Cacti/cacti.git
 
 
 else 
+yum install -y wget unzip
 wget https://github.com/Cacti/cacti/archive/release/$version.zip
 unzip $version 
 mv cacti-release-$version cacti
