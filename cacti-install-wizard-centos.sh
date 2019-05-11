@@ -59,7 +59,7 @@ yum-config-manager --enable remi-php72
 yum update
 
 
-echo"Downloading PHP modules needed for Cacti install"
+echo "Downloading PHP modules needed for Cacti install"
 
 yum install  -y rrdtool mariadb-server snmp snmpd php php-mysql  php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap php-mc php-posix 
 
@@ -71,6 +71,15 @@ systemctl enable httpd
 systemctl enable mariadb
 systemctl start mariadb
 systemctl start httpd
+
+
+
+####Open Port 80 and 443 on firewalld
+
+echo "Open http and https ports on firewalld"
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=443/tcp --permanent
+firewall-cmd --reload
 
 
 
@@ -154,6 +163,15 @@ MYSQL_SCRIPT
 mysql -u root  cacti < $location/cacti/cacti.sql
 mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root  mysql
 
+
+
+
+
+
+
+
+
+
 sed -i -e 's@^$database_type.*@$database_type = "mysql";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_default.*@$database_default = "cacti";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_hostname.*@$database_hostname = "127.0.0.1";@g' /var/www/html/cacti/include/config.php
@@ -220,10 +238,24 @@ fi
 
 
 
-
 ###Adding recomended PHP settings 
 sed -e 's/max_execution_time = 30/max_execution_time = 60/' -i /etc/php.ini
 sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php.ini
+
+
+
+echo "Applying recommended DB settings"
+echo "
+innodb_file_format = Barracuda
+character_set_client = utf8mb4
+max_allowed_packet = 16777777
+join_buffer_size = 32M
+innodb_file_per_table = ON
+innodb_large_prefix = 1
+innodb_buffer_pool_size = 250M
+innodb_additional_mem_pool_size = 90M
+innodb_flush_log_at_trx_commit = 2
+" >> /etc/my.cnf.d/server.cnf
 
 
 
@@ -250,3 +282,6 @@ touch /etc/cron.d/$user
 echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/cron.d/$user 
 
 
+
+##refresh httpd service
+systemctl restart httpd
