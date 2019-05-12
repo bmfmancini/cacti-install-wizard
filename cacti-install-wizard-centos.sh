@@ -123,7 +123,7 @@ firewall-cmd --reload
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [$timezone == ""] 
+if [ $timezone == "" ] 
 then
 
 
