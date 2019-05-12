@@ -41,7 +41,7 @@ release/1.2.0
 echo  "which release would you like to download ? Hit enter for latest"
 read version
 
-if  ["$version" == ""]
+if  [ "$version" == "" ]
 then
 git clone https://github.com/Cacti/cacti.git
 
@@ -87,7 +87,7 @@ fi
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [$timezone == ""] 
+if [ $timezone == "" ] 
 then
 
 echo "date.timezone =" US/Central  >> /etc/php/7.0/fpm/php.ini 
@@ -107,7 +107,7 @@ fi
 
 echo "Where would you like to install cacti default location is /var/www/html hit enter for default location"
 read location
-if [$location == ""]
+if [ $location == "" ]
 then
 
 location="/var/www/html"
@@ -121,7 +121,7 @@ fi
 #Create cacti user and change permission of directory
 echo "Which user would you like to run Cacti under (Default is www-data) hit enter for default"
 read user
-if [$user == ""]
+if [ $user == "" ]
 then 
 user="www-data"
 echo  "cacti will be run under www-data"
@@ -182,11 +182,12 @@ sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
 
 
 
-echo "default database setup with following details"
-echo "database name cacti\n
-database username cacti\n
-database password cacti"
-
+echo "
+default database setup with following details
+database name cacti
+database username cacti
+database password cacti 
+"
 
 
 
@@ -303,8 +304,8 @@ echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/
 
 
 echo "restarting Mysqldb and Apache server for service refresh"
- systemctl restart mysql
-  systemctl restart apache2
+systemctl restart mysql
+systemctl restart apache2
 
 
 
