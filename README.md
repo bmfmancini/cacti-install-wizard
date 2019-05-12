@@ -30,8 +30,9 @@ Add more plugins to download option<br>
 add option to select specific plugins from list<br>
 Document script
 
+Check out my video tutorial on using the script !
 
 
-
+[![Video Tutorial ](http://img.youtube.com/vi/koUcuQT0KIU/0.jpg)](https://youtu.be/koUcuQT0KIU "Video Tutorial")
 
 
