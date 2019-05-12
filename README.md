@@ -30,6 +30,12 @@ Add more plugins to download option<br>
 add option to select specific plugins from list<br>
 Document script
 
+
+BUGS
+
+on Ubuntu 18.04 + the script needs to be updated to remove php7.0-package name as 7.2 is the default php version in the repo instead of add more logic to the script I will add another .sh file for Ubuntu 18.04+ without the 7.0 in the command
+
+
 Check out my video tutorial on using the script !
 
 
