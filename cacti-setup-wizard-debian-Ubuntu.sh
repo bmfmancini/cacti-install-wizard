@@ -129,7 +129,15 @@ chown -R  www-data:www-data $location/cacti
 else 
 useradd $user
 chown -R $user:$user $location/cacti
+###Create cron entry for new user 
+
 fi
+
+##Create  cron entry 
+touch /etc/cron.d/$user
+echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/cron.d/$user 
+
+
 
 #assign permissions for cacti installation to www-data user
 user="www-data"
