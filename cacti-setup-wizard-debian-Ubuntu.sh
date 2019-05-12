@@ -131,8 +131,8 @@ useradd $user
 chown -R $user:$user $location/cacti
 fi
 
-sleep 5
-#assign permissions for cacti installation
+#assign permissions for cacti installation to www-data user
+user="www-data"
 echo $user
 chown -R $user.$user $location/cacti/resource/snmp_queries/          
 chown -R $user.$user $location/cacti/resource/script_server/
