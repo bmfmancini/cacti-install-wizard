@@ -107,7 +107,7 @@ fi
 
 echo "Where would you like to install cacti default location is /var/www/html hit enter for default location"
 read location
-if [ $location == "" ]
+if [$location == ""]
 then
 
 location="/var/www/html"
@@ -289,7 +289,7 @@ if [ $mon_script == "yes" ]
   git clone  https://github.com/bmfmancini/rrd-monitor.git
       else
        echo "Script will not be downloaded"
-
+fi
 
 ####Create cron for cacti user
 
