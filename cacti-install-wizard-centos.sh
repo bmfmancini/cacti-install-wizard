@@ -166,17 +166,17 @@ fi
 
 #assign permissions for cacti installation
 
-chown -R www-data:www-data $location/cacti/resource/snmp_queries/          
-chown -R www-data:www-data $location/cacti/resource/script_server/
-chown -R www-data:www-data $location/cacti/resource/script_queries/
-chown -R www-data:www-data $location/cacti/scripts/
-chown -R www-data:www-data $location/cacti/cache/boost/
-chown -R www-data:www-data $location/cacti/cache/mibcache/
-chown -R www-data:www-data $location/cacti/cache/realtime/
-chown -R www-data:www-data $location/cacti/cache/spikekill/
+chown -R apache:apache $location/cacti/resource/snmp_queries/          
+chown -R apache:apache $location/cacti/resource/script_server/
+chown -R apache:apache $location/cacti/resource/script_queries/
+chown -R apache:apache $location/cacti/scripts/
+chown -R apache:apache $location/cacti/cache/boost/
+chown -R apache:apache $location/cacti/cache/mibcache/
+chown -R apache:apache $location/cacti/cache/realtime/
+chown -R apache:apache $location/cacti/cache/spikekill/
 touch $location/cacti/log/cacti.log
 chmod 777 $location/cacti/log/cacti.log
-chown -R  www-data:www-data  $location/cacti/log/
+chown -R apache:apache   $location/cacti/log/
 cp $location/cacti/include/config.php.dist $location/cacti/include/config.php
 
 
