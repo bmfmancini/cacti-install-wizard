@@ -323,3 +323,8 @@ echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/
 echo "refreshing services"
 systemctl restart httpd
 systemctl restart mariadb
+
+
+echo "Installation completed !"
+
+
