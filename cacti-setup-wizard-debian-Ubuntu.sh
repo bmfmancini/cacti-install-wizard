@@ -90,14 +90,12 @@ read timezone
 if [ $timezone == "" ] 
 then
 
-echo "date.timezone =" US/Central  >> /etc/php/7.0/fpm/php.ini 
 echo "date.timezone =" US/Central  >> /etc/php/7.0/cli/php.ini 
 echo "date.timezone =" US/Central >> /etc/php/7.0/apache2/php.ini
 
 else
 
 
-echo "date.timezone =" $timezone >> /etc/php/7.0/fpm/php.ini 
 echo "date.timezone =" $timezone >> /etc/php/7.0/cli/php.ini 
 echo "date.timezone =" $timezone >> /etc/php/7.0/apache2/php.ini
 
@@ -140,19 +138,17 @@ echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/
 
 
 #assign permissions for cacti installation to www-data user
-user="www-data"
-echo $user
-chown -R $user.$user $location/cacti/resource/snmp_queries/          
-chown -R $user.$user $location/cacti/resource/script_server/
-chown -R $user.$user $location/cacti/resource/script_queries/
-chown -R $user.$user $location/cacti/scripts/
-chown -R $user.$user $location/cacti/cache/boost/
-chown -R $user.$user $location/cacti/cache/mibcache/
-chown -R $user.$user $location/cacti/cache/realtime/
-chown -R $user.$user $location/cacti/cache/spikekill/
+chown -R www-data:www-data $location/cacti/resource/snmp_queries/          
+chown -R www-data:www-data $location/cacti/resource/script_server/
+chown -R www-data:www-data $location/cacti/resource/script_queries/
+chown -R www-data:www-data $location/cacti/scripts/
+chown -R www-data:www-data $location/cacti/cache/boost/
+chown -R www-data:www-data $location/cacti/cache/mibcache/
+chown -R www-data:www-data $location/cacti/cache/realtime/
+chown -R www-data:www-data $location/cacti/cache/spikekill/
 touch $location/cacti/log/cacti.log
 chmod 777 $location/cacti/log/cacti.log
-chown -R $user.$user $location/cacti/log/
+chown -R www-data:www-data  $location/cacti/log/
 cp $location/cacti/include/config.php.dist $location/cacti/include/config.php
 
 
