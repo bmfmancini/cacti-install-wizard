@@ -56,7 +56,7 @@ fi
 
 echo "cacti requires a LAMP stack as well as some required plugins we will now install the required packages"
 apt-get update
-apt-get  install -y apache2 rrdtool mariadb-server snmp snmpd php php-mysql  libapache2-mod-php   php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap php-mc
+apt-get  install -y apache2 rrdtool mariadb-server snmp snmpd php php-mysql  libapache2-mod-php   php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap 
 
 
 
@@ -119,7 +119,7 @@ fi
 #Create cacti user and change permission of directory
 echo "Which user would you like to run Cacti under (Default is www-data) hit enter for default"
 read user
-if [ $user == "" ]
+if [$user == ""]
 then 
 user="www-data"
 echo  "cacti will be run under www-data"
@@ -288,7 +288,7 @@ else
 
 echo "Would you like to download my RRD Monitoring script ? type yes to download hit enter to skip "
 read mon_script
-if [ $mon_script == "yes" ]
+if [ $mon_script = "yes" ]
   then
   git clone  https://github.com/bmfmancini/rrd-monitor.git
       else
