@@ -87,7 +87,7 @@ fi
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [ $timezone == "" ] 
+if [$timezone = ""] 
 then
 
 echo "date.timezone =" US/Central  >> /etc/php/7.0/cli/php.ini 
@@ -105,7 +105,7 @@ fi
 
 echo "Where would you like to install cacti default location is /var/www/html hit enter for default location"
 read location
-if [$location == ""]
+if [$location = ""]
 then
 
 location="/var/www/html"
@@ -119,7 +119,7 @@ fi
 #Create cacti user and change permission of directory
 echo "Which user would you like to run Cacti under (Default is www-data) hit enter for default"
 read user
-if [ $user == "" ]
+if [$user = ""]
 then 
 user="www-data"
 echo  "cacti will be run under www-data"
