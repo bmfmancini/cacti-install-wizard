@@ -90,14 +90,14 @@ read timezone
 if [$timezone = ""] 
 then
 
-echo "date.timezone =" US/Central  >> /etc/php/7.0/cli/php.ini 
-echo "date.timezone =" US/Central >> /etc/php/7.0/apache2/php.ini
+echo "date.timezone =" US/Central  >> /etc/php/7.2/cli/php.ini 
+echo "date.timezone =" US/Central >> /etc/php/7.2/apache2/php.ini
 
 else
 
 
-echo "date.timezone =" $timezone >> /etc/php/7.0/cli/php.ini 
-echo "date.timezone =" $timezone >> /etc/php/7.0/apache2/php.ini
+echo "date.timezone =" $timezone >> /etc/php/7.2/cli/php.ini 
+echo "date.timezone =" $timezone >> /etc/php/7.2/apache2/php.ini
 
 fi 
 #move cacti install to chosen  directory
@@ -256,8 +256,8 @@ echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 ###Adding recomended PHP settings 
-sed -e 's/max_execution_time = 30/max_execution_time = 60/' -i /etc/php/7.0/apache2/php.ini
-sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/7.0/apache2/php.ini
+sed -e 's/max_execution_time = 30/max_execution_time = 60/' -i /etc/php/7.2/apache2/php.ini
+sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/7.2/apache2/php.ini
 
 
 
