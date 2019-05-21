@@ -56,7 +56,7 @@ fi
 
 echo "cacti requires a LAMP stack as well as some required plugins we will now install the required packages"
 apt-get update
-apt-get  install -y apache2 rrdtool mariadb-server snmp snmpd php php-mysql  libapache2-mod-php   php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap 
+apt-get  install -y apache2 libapache2-mod-php  rrdtool mariadb-server snmp snmpd php php-mysql  libapache2-mod-php   php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap 
 
 
 
