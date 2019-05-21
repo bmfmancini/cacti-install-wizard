@@ -261,8 +261,8 @@ echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 ###Adding recomended PHP settings 
-sed -e 's/max_execution_time = 30/max_execution_time = 60/' -i /etc/php/7.2/apache2/php.ini
-sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/7.2/apache2/php.ini
+sed -e 's/max_execution_time = 30/max_execution_time = 60/' -i /etc/php/$php_version/apache2/php.ini
+sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/$php_version/apache2/php.ini
 
 
 
