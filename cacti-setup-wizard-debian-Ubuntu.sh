@@ -85,7 +85,7 @@ fi
 
 ###Find installed version of PHP
 
-php_version=(php -v | head -n 1 | cut -d " " -f 2 | cut -f1-2 -d".")
+php_version="$(php -v | head -n 1 | cut -d " "  -f 2 | cut -f1-2 -d".")"
 
 
 
