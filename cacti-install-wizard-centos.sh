@@ -170,6 +170,7 @@ chown -R apache:apache $location/cacti/resource/snmp_queries/
 chown -R apache:apache $location/cacti/resource/script_server/
 chown -R apache:apache $location/cacti/resource/script_queries/
 chown -R apache:apache $location/cacti/scripts/
+chown -R apache:apache $location/cacti/rra/
 chown -R apache:apache $location/cacti/cache/boost/
 chown -R apache:apache $location/cacti/cache/mibcache/
 chown -R apache:apache $location/cacti/cache/realtime/
