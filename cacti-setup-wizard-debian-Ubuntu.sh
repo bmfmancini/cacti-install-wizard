@@ -267,20 +267,24 @@ sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/$php_version/apa
 
 
 
-echo "this script can download the following plugins monitor,thold would you like to install them  ?
+echo "this script can download the following plugins monitor,thold,audit from the cacti group  would you like to install them  ?
 type yes to download hit enter to skip"
 read plugins
- if [ $plugins == "yes" ]
+ if [$plugins ="yes"]
   then
    git clone https://github.com/Cacti/plugin_thold.git
     git clone https://github.com/Cacti/plugin_monitor.git
+    git clone https://github.com/Cacti/plugin_audit.git
 
 mv plugin_thold thold
   mv plugin_monitor monitor
+  mv plugin_audit  audit
    chown -R $user:$user thold
     chown -R $user:$user monitor
+     chown -R $user:$user audit
      mv thold $location/cacti/plugins
       mv monitor $location/cacti/plugins
+       mv monitor $location/cacti/plugins
 
 
 
