@@ -92,7 +92,7 @@ php_version="$(php -v | head -n 1 | cut -d " "  -f 2 | cut -f1-2 -d".")"
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [$timezone = ""] 
+if [ $timezone = "" ] 
 then
 
 echo "date.timezone =" US/Central  >> /etc/php/$php_version/cli/php.ini 
@@ -110,7 +110,7 @@ fi
 
 echo "Where would you like to install cacti default location is /var/www/html hit enter for default location"
 read location
-if [$location = ""]
+if [ $location = "" ]
 then
 
 location="/var/www/html"
@@ -124,7 +124,7 @@ fi
 #Create cacti user and change permission of directory
 echo "Which user would you like to run Cacti under (Default is www-data) hit enter for default"
 read user
-if [$user = ""]
+if [ $user = "" ]
 then 
 user="www-data"
 echo  "cacti will be run under www-data"
@@ -270,7 +270,7 @@ sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/$php_version/apa
 echo "this script can download the following plugins monitor,thold,audit from the cacti group  would you like to install them  ?
 type yes to download hit enter to skip"
 read plugins
- if [$plugins ="yes"]
+ if [ $plugins ="yes" ]
   then
    git clone https://github.com/Cacti/plugin_thold.git
     git clone https://github.com/Cacti/plugin_monitor.git
