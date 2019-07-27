@@ -153,7 +153,7 @@ chown -R www-data:www-data $location/cacti/cache/mibcache/
 chown -R www-data:www-data $location/cacti/cache/realtime/
 chown -R www-data:www-data $location/cacti/cache/spikekill/
 touch $location/cacti/log/cacti.log
-chmod 777 $location/cacti/log/cacti.log
+chmod 664 $location/cacti/log/cacti.log
 chown -R www-data:www-data  $location/cacti/log/
 cp $location/cacti/include/config.php.dist $location/cacti/include/config.php
 
