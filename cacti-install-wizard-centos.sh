@@ -298,8 +298,7 @@ innodb_flush_log_at_trx_commit = 2
 
 
 
-echo "this script can download the following plugins monitor,thold would you like to install them  ?
-type yes to download hit enter to skip"
+echo "this script can download the following plugins monitor,thold would you like to install them  ? type yes to download hit enter to skip"
 read plugins
  if [ $plugins == "yes" ]
   then
