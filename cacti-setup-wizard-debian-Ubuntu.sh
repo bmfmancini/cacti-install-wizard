@@ -31,6 +31,7 @@ echo "Dont forget to support cacti @ cacti.net!"
 
 
 #Download chosen release
+
 echo "here are some of the current cacti release versions \n
 release/1.2.4
 release/1.2.3
@@ -38,6 +39,8 @@ release/1.2.2
 release/1.2.1
 release/1.2.0
 "
+
+
 
 echo  "which release would you like to download ? Hit enter for latest"
 read version
@@ -268,8 +271,7 @@ sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/$php_version/apa
 
 
 
-echo "this script can download the following plugins monitor,thold,audit from the cacti group  would you like to install them  ?
-type yes to download hit enter to skip"
+echo "this script can download the following plugins monitor,thold,audit from the cacti group  would you like to install them  ? type yes to download hit enter to skip"
 read plugins
  if [ $plugins ="yes" ]
   then
