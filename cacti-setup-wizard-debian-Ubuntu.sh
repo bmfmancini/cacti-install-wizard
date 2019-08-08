@@ -249,6 +249,10 @@ sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
 
 
 fi
+
+###Make a backup of maria db config before making changes 
+cp /etc/mysql/mariadb.conf.d/50-server.cnf .50-server.cnf.backup
+
 ##Adding Maria DB conf 
 echo "innodb_flush_log_at_timeout = 4" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_read_io_threads = 34"   >>  /etc/mysql/mariadb.conf.d/50-server.cnf
@@ -261,6 +265,7 @@ echo "innodb_io_capacity = 5000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_io_capacity_max = 10000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_file_format = Barracuda" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_buffer_pool_instances	= 3" >> /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 
@@ -273,7 +278,7 @@ sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/$php_version/apa
 
 echo "this script can download the following plugins monitor,thold,audit from the cacti group  would you like to install them  ? type yes to download hit enter to skip"
 read plugins
- if [ $plugins ="yes" ]
+ if [ $plugins == "yes" ]
   then
    git clone https://github.com/Cacti/plugin_thold.git  thold
     git clone https://github.com/Cacti/plugin_monitor.git monitor
@@ -298,7 +303,7 @@ else
 
 echo "Would you like to download my RRD Monitoring script ? type yes to download hit enter to skip "
 read mon_script
-if [ $mon_script = "yes" ]
+if [ $mon_script == "yes" ]
   then
   git clone  https://github.com/bmfmancini/rrd-monitor.git
       else
