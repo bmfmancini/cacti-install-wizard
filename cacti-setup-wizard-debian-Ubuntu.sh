@@ -21,7 +21,7 @@
 
 
 echo "this script requires git"
-apt-get install git -y
+apt-get install git unzip -y
 
 
 
