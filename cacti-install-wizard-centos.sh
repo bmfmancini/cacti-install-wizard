@@ -279,7 +279,8 @@ fi
 sed -e 's/max_execution_time = 30/max_execution_time = 60/' -i /etc/php.ini
 sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php.ini
 
-
+###Make a backup of maria db config before making changes 
+cp /etc/my.cnf.d/server.cnf /etc/my.cnf.d/server.cnf.backup
 
 echo "Applying recommended DB settings"
 echo "
