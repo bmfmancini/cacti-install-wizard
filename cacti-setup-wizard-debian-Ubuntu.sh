@@ -275,13 +275,11 @@ echo "this script can download the following plugins monitor,thold,audit from th
 read plugins
  if [ $plugins ="yes" ]
   then
-   git clone https://github.com/Cacti/plugin_thold.git
-    git clone https://github.com/Cacti/plugin_monitor.git
-    git clone https://github.com/Cacti/plugin_audit.git
+   git clone https://github.com/Cacti/plugin_thold.git  thold
+    git clone https://github.com/Cacti/plugin_monitor.git monitor
+    git clone https://github.com/Cacti/plugin_audit.git audit
 
-mv plugin_thold thold
-  mv plugin_monitor monitor
-  mv plugin_audit  audit
+
    chown -R $user:$user thold
     chown -R $user:$user monitor
      chown -R $user:$user audit
