@@ -251,7 +251,7 @@ sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
 fi
 
 ###Make a backup of maria db config before making changes 
-cp /etc/mysql/mariadb.conf.d/50-server.cnf .50-server.cnf.backup
+cp /etc/mysql/mariadb.conf.d/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf.backup
 
 ##Adding Maria DB conf 
 echo "innodb_flush_log_at_timeout = 4" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
@@ -266,7 +266,7 @@ echo "innodb_io_capacity_max = 10000" >>  /etc/mysql/mariadb.conf.d/50-server.cn
 echo "innodb_file_format = Barracuda" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "innodb_buffer_pool_instances	= 3" >> /etc/mysql/mariadb.conf.d/50-server.cnf
-
+echo "innodb_doublewrite = OFF" >> /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 ###Adding recomended PHP settings 
