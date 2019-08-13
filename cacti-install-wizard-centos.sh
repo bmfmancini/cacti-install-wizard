@@ -19,6 +19,14 @@
 #    You should have received a copy of the GNU General Public License#
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.#
 
+
+
+
+
+
+
+
+
 echo "this script requires git and unzip"
 yum install -y git unzip
 
@@ -36,6 +44,8 @@ sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config
 
 #Download chosen release
 echo "here are some of the current cacti release versions \n
+release/1.2.5
+release/1.2.4
 release/1.2.3
 release/1.2.2
 release/1.2.1
@@ -326,5 +336,4 @@ systemctl restart mariadb
 
 
 echo "Installation completed !"
-
 
