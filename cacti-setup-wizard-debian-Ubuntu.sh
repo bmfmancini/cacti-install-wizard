@@ -191,7 +191,11 @@ sed -i -e 's@^$database_port.*@$database_port = "3306";@g' /var/www/html/cacti/i
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
 
-
+###Cacti spine settings
+cp /usr/local/spine/etc/spine.conf.dist /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_Host.*@DB_Host  127.0.0.1@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_User.*@DB_User  cacti@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_Pass.*@DB_Pass  cacti@g' /usr/local/spine/etc/spine.conf
 
 
 
@@ -241,6 +245,11 @@ sed -i -e 's@^$database_password.*@$database_password = '$customdbpassword';@g' 
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
+####Spine configurations if you did not choose spine this will no do anything
+cp /usr/local/spine/etc/spine.conf.dist /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_Host.*@DB_Host  127.0.0.1@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_User.*@DB_User  '$customdbuser'@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_Pass.*@DB_Pass  '$customdbpassword'@g' /usr/local/spine/etc/spine.conf
 
 
 
