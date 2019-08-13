@@ -184,6 +184,7 @@ chown -R apache:apache $location/cacti/cache/boost/
 chown -R apache:apache $location/cacti/cache/mibcache/
 chown -R apache:apache $location/cacti/cache/realtime/
 chown -R apache:apache $location/cacti/cache/spikekill/
+chown -R apache:apache $location/cacti/include/config.php
 touch $location/cacti/log/cacti.log
 chmod 664 $location/cacti/log/cacti.log
 chown -R apache:apache   $location/cacti/log/
