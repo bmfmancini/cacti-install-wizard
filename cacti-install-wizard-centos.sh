@@ -22,11 +22,6 @@
 
 
 
-
-
-
-
-
 echo "this script requires git and unzip"
 yum install -y git unzip
 
@@ -133,7 +128,7 @@ firewall-cmd --reload
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [ $timezone == "" ] 
+if [$timezone == ""] 
 then
 
 
@@ -184,12 +179,11 @@ chown -R apache:apache $location/cacti/cache/boost/
 chown -R apache:apache $location/cacti/cache/mibcache/
 chown -R apache:apache $location/cacti/cache/realtime/
 chown -R apache:apache $location/cacti/cache/spikekill/
-chown -R apache:apache $location/cacti/include/config.php
 touch $location/cacti/log/cacti.log
 chmod 664 $location/cacti/log/cacti.log
 chown -R apache:apache   $location/cacti/log/
 cp $location/cacti/include/config.php.dist $location/cacti/include/config.php
-
+chown -R apache:apache $location/cacti/include/config.php
 
 ##Create database 
 echo "would you like to customize the database name and user ? hit enter for defaults"
@@ -228,7 +222,11 @@ sed -i -e 's@^$database_password.*@$database_password = "cacti";@g' /var/www/htm
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
-
+###Cacti spine settomgs
+cp /usr/local/spine/etc/spine.conf.dist /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_Host.*@DB_Host  127.0.0.1@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_User.*@DB_User  cacti@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_Pass.*@DB_Pass  cacti@g' /usr/local/spine/etc/spine.conf
 
 
 
@@ -278,7 +276,10 @@ sed -i -e 's@^$database_password.*@$database_password = '$customdbpassword';@g' 
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' "$location"/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
-
+cp /usr/local/spine/etc/spine.conf.dist /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_Host.*@DB_Host  127.0.0.1@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_User.*@DB_User  '$customdbuser'@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^DB_Pass.*@DB_Pass  '$customdbpassword'@g' /usr/local/spine/etc/spine.conf
 
 fi
 
@@ -312,7 +313,7 @@ innodb_flush_log_at_trx_commit = 2
 
 echo "this script can download the following plugins monitor,thold would you like to install them  ? type yes to download hit enter to skip"
 read plugins
- if [ $plugins == "yes" ]
+ if [ $plugins = "yes" ]
   then
    git clone https://github.com/Cacti/plugin_thold.git
     git clone https://github.com/Cacti/plugin_monitor.git
@@ -331,10 +332,14 @@ echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/
 
 
 
+
+
 echo "refreshing services"
 systemctl restart httpd
 systemctl restart mariadb
 
 
 echo "Installation completed !"
+
+
 
