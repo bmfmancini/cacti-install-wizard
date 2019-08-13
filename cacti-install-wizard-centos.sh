@@ -305,6 +305,7 @@ innodb_large_prefix = 1
 innodb_buffer_pool_size = 250M
 innodb_additional_mem_pool_size = 90M
 innodb_flush_log_at_trx_commit = 2
+innodb_doublewrite = OFF
 " >> /etc/my.cnf.d/server.cnf
 
 
