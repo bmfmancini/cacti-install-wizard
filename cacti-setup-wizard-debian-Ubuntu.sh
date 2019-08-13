@@ -33,6 +33,7 @@ echo "Dont forget to support cacti @ cacti.net!"
 #Download chosen release
 
 echo "here are some of the current cacti release versions \n
+release/1.2.5
 release/1.2.4
 release/1.2.3
 release/1.2.2
