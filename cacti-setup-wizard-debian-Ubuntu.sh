@@ -424,7 +424,7 @@ read currentpath
 
 
 echo "backing up DB"
-mysql -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti+$currentdb.sql
+mysql -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
 
 echo "backup current install files"
 cp -R $currentpath .
@@ -446,8 +446,8 @@ fi
 
 
 mv $currentpath/cacti  /tmp
-mv cacti $currentpath/cacti
-cp /tmp/cacti/include/config.php $currentpath/include/config.php
+mv cacti $currentpath
+cp /tmp/cacti/include/config.php $currentpath/cacti/include/config.php
 
 chown -R www-data:www-data $currentpath
 
