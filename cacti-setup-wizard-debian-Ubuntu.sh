@@ -407,6 +407,55 @@ fi
 }
 
 
+function cacti_upgrade () {
+
+echo "this option will upgrade you existing cacti installation
+you will need to supply you db information and cacti installation path"
+
+echo "specify your db username"
+read currentdbuser
+
+echo "specify your database name"
+read currentdb
+echo "specify your current db password"
+read currentdbpwd
+echo "specify your cacti install path usually /var/www/html"
+read currentpath
+
+
+echo "backing up DB"
+mysql -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti+$currentdb.sql
+
+echo "backup current install files"
+cp -R $currentpath .
+
+
+echo  "which release would you like to upgrade to? Hit enter for latest"
+read version
+
+if  [ "$version" == "" ]
+then
+git clone https://github.com/Cacti/cacti.git
+
+
+else 
+wget https://github.com/Cacti/cacti/archive/release/$version.zip
+unzip $version 
+mv cacti-release-$version cacti
+fi
+
+
+mv $currentpath/cacti  /tmp
+mv cacti $currentpath/cacti
+cp /tmp/cacti/include/config.php $currentpath/include/config.php
+
+chown -R www-data:www-data $currentpath
+
+echo $currentpath
+
+
+}
+
 
 
 
@@ -416,7 +465,7 @@ fi
 
 
 choice='Select a operation: '
-options=("New-installation" "spine-only-installation" "Option 3" "Quit")
+options=("New-installation" "spine-only-installation" "cacti-upgrade" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -426,8 +475,8 @@ do
         "spine-only-installation")
             spine_install
             ;;
-        "Option 3")
-            echo "you chose choice 3"
+        "cacti-upgrade")
+            cacti_upgrade
             ;;
         "Quit")
             break
