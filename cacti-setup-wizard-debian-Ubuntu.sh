@@ -71,7 +71,9 @@ read answer
 if [ $answer == "1" ]
 then
 ##Download packages needed for spine
-apt-get  install -y build-essential dos2unix dh-autoreconf libtool  help2man libssl-dev libmysql++-dev  librrds-perl libsnmp-dev 
+apt-get  install -y build-essential dos2unix dh-autoreconf libtool  help2man libssl-dev   librrds-perl libsnmp-dev 
+apt-get install -y libmysql++-dev ##For debian 9 and below
+apt-get install -y default-libmysqlclient-dev ###For debian 10+
 echo "downloading and compling spine"
 git clone https://github.com/Cacti/spine.git
 cd spine
