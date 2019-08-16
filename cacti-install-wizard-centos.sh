@@ -158,7 +158,7 @@ fi
 
 
 #Create cacti user and change permission of directory
-echo "Which user would you like to run Cacti under (Default is www-data) hit enter for default"
+echo "Which user would you like to run Cacti under (Default is apache) hit enter for default"
 read user
 if [$user = ""]
 then 
