@@ -27,6 +27,8 @@ yum install -y git unzip
 
 
 
+function new_install () {
+
 
 echo "This script will download all Cacti dependecies and download the chosen cacti version from the cacti github"
 echo "Dont forget to support cacti @ cacti.net!"
@@ -342,6 +344,8 @@ systemctl restart mariadb
 
 echo "Installation completed !"
 
+
+}
 
 
 function spine_install () {
