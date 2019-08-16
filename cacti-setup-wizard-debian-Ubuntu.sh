@@ -21,7 +21,7 @@
 
 
 echo "this script requires git"
-apt-get install git -y
+apt-get install git unzip -y
 
 
 
@@ -275,7 +275,7 @@ sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/$php_version/apa
 
 echo "this script can download the following plugins monitor,thold,audit from the cacti group  would you like to install them  ? type yes to download hit enter to skip"
 read plugins
- if [ $plugins ="yes" ]
+ if [ $plugins = "yes" ]
   then
    git clone https://github.com/Cacti/plugin_thold.git  thold
     git clone https://github.com/Cacti/plugin_monitor.git monitor
@@ -409,6 +409,10 @@ fi
 
 function cacti_upgrade () {
 
+echo "Stopping cron service"
+systemctl stop cron
+
+
 echo "this option will upgrade you existing cacti installation
 you will need to supply you db information and cacti installation path"
 
@@ -426,8 +430,8 @@ read currentpath
 echo "backing up DB"
 mysql -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
 
-echo "backup current install files"
-cp -R $currentpath .
+#echo "backup current install files"
+#cp -R $currentpath .
 
 
 echo  "which release would you like to upgrade to? Hit enter for latest"
@@ -447,12 +451,31 @@ fi
 
 mv $currentpath/cacti  /tmp
 mv cacti $currentpath
+
+echo "adding old config.php file into new cacti folder"
 cp /tmp/cacti/include/config.php $currentpath/cacti/include/config.php
+
+echo "Moving plugin files back into new cacti folder"
+cp -R /tmp/cacti/plugins/* $currentpath/cacti/plugins/
 
 chown -R www-data:www-data $currentpath
 
-echo $currentpath
 
+echo "what system user do you run cacti as ? usually www-data"
+read cactiuser
+
+chown -R $cactiuser:$cactiuser $currentpath/cacti
+
+
+
+echo "cacti has been upgraded to  " + $version
+echo " a backup of your previous release has been made to /tmp"
+echo "once you have confirmed everything is working remove the backup from /tmp"
+
+
+
+
+systemctl start cron
 
 }
 
