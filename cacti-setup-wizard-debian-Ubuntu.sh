@@ -171,9 +171,11 @@ read customize
 if [[ $customize = "" ]] 
 then
 
+password="$(openssl rand -base64 32)"
+
 mysql -uroot <<MYSQL_SCRIPT
 CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
-GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'cacti'; ;
+GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY '$password'; ;
 GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;
 USE mysql;
 ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -201,7 +203,7 @@ echo "
 default database setup with following details
 database name cacti
 database username cacti
-database password cacti 
+datbase password  $password 
 "
 
 
