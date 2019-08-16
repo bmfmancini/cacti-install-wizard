@@ -193,10 +193,11 @@ read customize
 
 if [[ $customize = "" ]] 
 then
+password="$(openssl rand -base64 32)"
 
 mysql -uroot <<MYSQL_SCRIPT
 CREATE DATABASE cacti DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
-GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY 'cacti'; ;
+GRANT ALL PRIVILEGES ON cacti.* TO 'cacti'@'localhost' IDENTIFIED BY '$password'; ;
 GRANT SELECT ON mysql.time_zone_name TO cacti@localhost;
 USE mysql;
 ALTER DATABASE cacti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -219,8 +220,8 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root  mysql
 sed -i -e 's@^$database_type.*@$database_type = "mysql";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_default.*@$database_default = "cacti";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_hostname.*@$database_hostname = "127.0.0.1";@g' /var/www/html/cacti/include/config.php
-sed -i -e 's@^$database_username.*@$database_username = "cacti";@g' /var/www/html/cacti/include/config.php
-sed -i -e 's@^$database_password.*@$database_password = "cacti";@g' /var/www/html/cacti/include/config.php
+sed -i -e 's@^$database_username.*@$database_username = 'cacti';@g' /var/www/html/cacti/include/config.php
+sed -i -e 's@^$database_password.*@$database_password = '$password';@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
@@ -236,7 +237,7 @@ sed -i -e 's@^DB_Pass.*@DB_Pass  cacti@g' /usr/local/spine/etc/spine.conf
 echo "default database setup with following details"
 echo "database name cacti\n
 database username cacti\n
-database password cacti"
+database password $password"
 
 
 
