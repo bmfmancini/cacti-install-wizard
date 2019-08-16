@@ -2,6 +2,7 @@
 
 ##Author Sean Mancini
 #www.seanmancini.com
+#Version 2.0
 
 ##Purpose this script will facilitate the installation of Cacti along with all supporting binaries 
 #this script will also ensure that proper configurations are put in place to get up and running with cacti
