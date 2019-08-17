@@ -221,7 +221,8 @@ sed -i -e 's@^$database_type.*@$database_type = "mysql";@g' /var/www/html/cacti/
 sed -i -e 's@^$database_default.*@$database_default = "cacti";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_hostname.*@$database_hostname = "127.0.0.1";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_username.*@$database_username = 'cacti';@g' /var/www/html/cacti/include/config.php
-sed -i -e 's@^$database_password.*@$database_password = '$password';@g' /var/www/html/cacti/include/config.php
+sed -i -e 's@^$database_password.*@$database_password = "'$password'";@g' /var/www/html/cacti/include/config.php
+#sed -i -e 's@^$database_password.*@$database_password = '$password';@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
