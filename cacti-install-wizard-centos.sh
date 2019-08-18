@@ -318,7 +318,7 @@ innodb_doublewrite = OFF
 
 echo "this script can download the following plugins monitor,thold would you like to install them  ? type yes to download hit enter to skip"
 read plugins
- if [ $plugins = "yes" ]
+ if [[ $plugins = "yes" ]]
   then
    git clone https://github.com/Cacti/plugin_thold.git
     git clone https://github.com/Cacti/plugin_monitor.git
