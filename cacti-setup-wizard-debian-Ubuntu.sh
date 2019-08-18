@@ -278,7 +278,7 @@ sed -e 's/memory_limit = 128M/memory_limit = 400M/' -i /etc/php/$php_version/apa
 
 echo "this script can download the following plugins monitor,thold,audit from the cacti group  would you like to install them  ? type yes to download hit enter to skip"
 read plugins
- if [ $plugins = "yes" ]
+ if [[  $plugins == "yes"  ]]
   then
    git clone https://github.com/Cacti/plugin_thold.git  thold
     git clone https://github.com/Cacti/plugin_monitor.git monitor
@@ -303,7 +303,7 @@ else
 
 echo "Would you like to download my RRD Monitoring script ? type yes to download hit enter to skip "
 read mon_script
-if [ $mon_script = "yes" ]
+if [[  $mon_script == "yes" ]]
   then
   git clone  https://github.com/bmfmancini/rrd-monitor.git
       else
