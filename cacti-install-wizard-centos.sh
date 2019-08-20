@@ -22,6 +22,15 @@
 
 
 
+if
+[[ $(id -u) -ne 0 ]] ;
+then echo "this script must be run as root" ;
+sudo su  ; fi
+
+
+
+
+
 
 echo "this script requires git and unzip"
 yum install -y git unzip
