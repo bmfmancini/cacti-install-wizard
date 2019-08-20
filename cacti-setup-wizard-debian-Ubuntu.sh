@@ -20,6 +20,16 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.#
 
 
+
+
+
+if 
+[[ $(id -u) -ne 0 ]] ; 
+then echo "this script must be run as root" ;
+sudo su  ; fi
+
+
+
 echo "this script requires git"
 apt-get install git unzip -y
 
