@@ -341,6 +341,18 @@ else
  echo "plugins will not be installed"
 fi
 
+
+echo "Would you like to download my RRD Monitoring script ? type yes to download hit enter to skip "
+read mon_script
+if [[  $mon_script == "yes" ]]
+  then
+  git clone  https://github.com/bmfmancini/rrd-monitor.git
+      else
+       echo "Script will not be downloaded"
+fi
+
+
+
 touch /etc/cron.d/$user
 echo "*/5 * * * * $user php $location/cacti/poller.php > /dev/null 2>&1" > /etc/cron.d/$user 
 
