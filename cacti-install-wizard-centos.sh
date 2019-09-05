@@ -434,7 +434,7 @@ echo "specify your database name"
 read currentdb
 echo "specify your current db password"
 read currentdbpwd
-echo "specify your cacti install path usually /var/www/html"
+echo "specify your cacti install path usually /var/www/html hit enter to accept default"
 read currentpath
 if [  "$currentpath" == "" ]
 then 
@@ -474,7 +474,7 @@ cp -R /tmp/cacti/plugins/* $currentpath/cacti/plugins/
 
 
 
-echo "what system user do you run cacti as ? usually apache"
+echo "what system user do you run cacti as ? usually apache hit enter for default"
 read cactiuser
 if [ "$cactiuser" == "" ]
 then 
