@@ -436,6 +436,9 @@ echo "specify your current db password"
 read currentdbpwd
 echo "specify your cacti install path usually /var/www/html"
 read currentpath
+if [  "$currentpath" == "" ]
+then 
+$currenpath = "/var/www/html"
 
 
 echo "backing up DB"
@@ -472,8 +475,11 @@ cp -R /tmp/cacti/plugins/* $currentpath/cacti/plugins/
 chown -R www-data:www-data $currentpath
 
 
-echo "what system user do you run cacti as ? usually www-data"
+echo "what system user do you run cacti as ? usually apache"
 read cactiuser
+if [ "$cactiuser" == "" ]
+then 
+$cactiuser = "apache"
 
 chown -R $cactiuser:$cactiuser $currentpath/cacti
 
