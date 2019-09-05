@@ -438,8 +438,8 @@ echo "specify your cacti install path usually /var/www/html"
 read currentpath
 if [  "$currentpath" == "" ]
 then 
-$currenpath = "/var/www/html"
-
+currentpath="/var/www/html"
+fi
 
 echo "backing up DB"
 mysql -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
@@ -472,15 +472,15 @@ cp /tmp/cacti/include/config.php $currentpath/cacti/include/config.php
 echo "Moving plugin files back into new cacti folder"
 cp -R /tmp/cacti/plugins/* $currentpath/cacti/plugins/
 
-chown -R www-data:www-data $currentpath
 
 
 echo "what system user do you run cacti as ? usually apache"
 read cactiuser
 if [ "$cactiuser" == "" ]
 then 
-$cactiuser = "apache"
+cactiuser="apache"
 
+fi
 chown -R $cactiuser:$cactiuser $currentpath/cacti
 
 
