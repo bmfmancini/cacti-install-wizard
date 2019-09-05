@@ -426,15 +426,16 @@ echo "specify your database name"
 read currentdb
 echo "specify your current db password"
 read currentdbpwd
-echo "specify your cacti install path usually /var/www/html"
+echo "specify your cacti install path usually /var/www/html hit enter to accept default"
 read currentpath
-
+if [  "$currentpath" == "" ]
+then 
+currentpath="/var/www/html"
+fi
 
 echo "backing up DB"
 mysql -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
 
-#echo "backup current install files"
-#cp -R $currentpath .
 
 
 echo  "which release would you like to upgrade to? Hit enter for latest"
@@ -461,12 +462,15 @@ cp /tmp/cacti/include/config.php $currentpath/cacti/include/config.php
 echo "Moving plugin files back into new cacti folder"
 cp -R /tmp/cacti/plugins/* $currentpath/cacti/plugins/
 
-chown -R www-data:www-data $currentpath
 
 
-echo "what system user do you run cacti as ? usually www-data"
+echo "what system user do you run cacti as ? usually www-data hit enter for default"
 read cactiuser
+if [ "$cactiuser" == "" ]
+then 
+cactiuser="www-data"
 
+fi
 chown -R $cactiuser:$cactiuser $currentpath/cacti
 
 
@@ -481,6 +485,7 @@ echo "once you have confirmed everything is working remove the backup from /tmp"
 systemctl start cron
 
 }
+
 
 
 
