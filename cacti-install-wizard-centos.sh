@@ -50,7 +50,7 @@ sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config
 
 
 #Download chosen release
-echo "here are some of the current cacti release versions \n
+echo "here are some of the current cacti release versions
 release/1.2.5
 release/1.2.4
 release/1.2.3
