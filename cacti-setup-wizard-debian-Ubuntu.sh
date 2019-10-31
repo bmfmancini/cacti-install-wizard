@@ -35,13 +35,14 @@ function new_install () {
 #Download chosen release
 
 echo "here are some of the current cacti release versions \n
-release/1.2.6
-release/1.2.5
-release/1.2.4
-release/1.2.3
-release/1.2.2
-release/1.2.1
-release/1.2.0
+1.2.7
+1.2.6
+1.2.5
+1.2.4
+1.2.3
+1.2.2
+1.2.1
+1.2.0
 "
 ###One day I will have this auto populate 
 
