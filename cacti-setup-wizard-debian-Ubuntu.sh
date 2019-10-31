@@ -55,7 +55,7 @@ git clone https://github.com/Cacti/cacti.git
 
 
 else 
-wget https://github.com/Cacti/cacti/archive/release/$version.zip
+wget https://github.com/Cacti/cacti/releases/$version.zip
 unzip $version 
 mv cacti-release-$version cacti
 fi
