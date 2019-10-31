@@ -34,16 +34,10 @@ function new_install () {
 
 #Download chosen release
 
-echo "here are some of the current cacti release versions \n
-1.2.7
-1.2.6
-1.2.5
-1.2.4
-1.2.3
-1.2.2
-1.2.1
-1.2.0
-"
+echo "here are some of the current cacti release versions \n"
+ git ls-remote --tags https://github.com/Cacti/cacti|grep 'release/[[:digit:]\.]*$'|tail -10|awk '{print $2}'|tr 'refs/tags/release' ' '|sed 's/^ *//;s/ *$//'
+
+
 ###One day I will have this auto populate 
 
 
