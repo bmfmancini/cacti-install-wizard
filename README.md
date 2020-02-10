@@ -10,6 +10,7 @@ chmod +x cacti-setup-wizard.sh <br>
 RUN THE SCRIPT AS ROOT!!
 
 
+The script also works on RHEL however you MUST enable EPEL and ensure its working
 
 
 - features are
