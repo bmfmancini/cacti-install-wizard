@@ -195,6 +195,30 @@ chown -R apache:apache   $location/cacti/log/
 cp $location/cacti/include/config.php.dist $location/cacti/include/config.php
 chown -R apache:apache $location/cacti/include/config.php
 
+
+
+###Make a backup of maria db config before making changes
+cp /etc/my.cnf.d/server.cnf /etc/my.cnf.d/server.cnf.backup
+
+
+
+echo "Applying recommended DB settings"
+echo "
+innodb_file_format = Barracuda
+character_set_client = utf8mb4
+max_allowed_packet = 16777777
+join_buffer_size = 32M
+innodb_file_per_table = ON
+innodb_large_prefix = 1
+innodb_buffer_pool_size = 250M
+innodb_additional_mem_pool_size = 90M
+innodb_flush_log_at_trx_commit = 2
+innodb_doublewrite = OFF
+" >> /etc/my.cnf.d/server.cnf
+
+
+
+
 ##Create database 
 echo "would you like to customize the database name and user ? hit enter for defaults"
 read customize
@@ -263,23 +287,6 @@ read customdbpassword
 
 
 
-###Make a backup of maria db config before making changes
-cp /etc/my.cnf.d/server.cnf /etc/my.cnf.d/server.cnf.backup
-
-
-echo "Applying recommended DB settings"
-echo "
-innodb_file_format = Barracuda
-character_set_client = utf8mb4
-max_allowed_packet = 16777777
-join_buffer_size = 32M
-innodb_file_per_table = ON
-innodb_large_prefix = 1
-innodb_buffer_pool_size = 250M
-innodb_additional_mem_pool_size = 90M
-innodb_flush_log_at_trx_commit = 2
-innodb_doublewrite = OFF
-" >> /etc/my.cnf.d/server.cnf
 
 
 
