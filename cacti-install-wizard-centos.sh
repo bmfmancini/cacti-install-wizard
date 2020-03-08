@@ -319,6 +319,8 @@ innodb_flush_log_at_trx_commit = 2
 innodb_doublewrite = OFF
 " >> /etc/my.cnf.d/server.cnf
 
+echo "Restarting Mariadb service"
+systemctl restart mariadb
 
 
 
@@ -327,10 +329,8 @@ echo "this script can download the following plugins monitor,thold would you lik
 read plugins
  if [[ $plugins = "yes" ]]
   then
-   git clone https://github.com/Cacti/plugin_thold.git
-    git clone https://github.com/Cacti/plugin_monitor.git
-mv plugin_thold thold
-  mv plugin_monitor monitor
+   git clone https://github.com/Cacti/plugin_thold.git thold
+    git clone https://github.com/Cacti/plugin_monitor.git monitor
    chown -R $user:$user thold
     chown -R $user:$user monitor
      mv thold $location/cacti/plugins
