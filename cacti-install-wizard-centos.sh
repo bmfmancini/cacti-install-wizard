@@ -51,12 +51,10 @@ sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config
 
 #Download chosen release
 echo "here are some of the current cacti release versions
-release/1.2.5
-release/1.2.4
-release/1.2.3
-release/1.2.2
-release/1.2.1
-release/1.2.0
+release/1.2.10
+release/1.2.9
+release/1.2.8
+release/1.2.7
 "
 
 echo  "which release would you like to download ? Hit enter for latest"
@@ -140,7 +138,7 @@ firewall-cmd --reload
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [ $timezone = "" ] 
+if [$timezone == ""] 
 then
 
 
