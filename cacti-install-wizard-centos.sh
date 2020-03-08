@@ -216,7 +216,7 @@ innodb_flush_log_at_trx_commit = 2
 innodb_doublewrite = OFF
 " >> /etc/my.cnf.d/server.cnf
 
-
+systemctl restart mariadb
 
 
 ##Create database 
