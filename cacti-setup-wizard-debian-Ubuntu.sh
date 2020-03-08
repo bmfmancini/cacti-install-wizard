@@ -161,6 +161,26 @@ cp $location/cacti/include/config.php.dist $location/cacti/include/config.php
 
 
 
+
+
+##Adding Maria DB conf  
+echo "innodb_flush_log_at_timeout = 4" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_read_io_threads = 34"   >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_write_io_threads = 17" >> /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "max_heap_table_size = 70M"    >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "tmp_table_size = 70M"         >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "join_buffer_size = 130M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_buffer_pool_size = 250M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_io_capacity = 5000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_io_capacity_max = 10000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_file_format = Barracuda" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
+
+
+systemctl restart mysql
+
+
+
 ##Create database 
 echo "would you like to customize the database name and user ? hit enter for defaults"
 read customize
@@ -192,6 +212,7 @@ sed -i -e 's@^$database_password.*@$database_password = "'$password'";@g' /var/w
 sed -i -e 's@^$database_port.*@$database_port = "3306";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^$database_ssl.*@$database_ssl = "false";@g' /var/www/html/cacti/include/config.php
 sed -i -e 's@^//$url_path@$url_path@g' /var/www/html/cacti/include/config.php
+
 
 
 
@@ -251,18 +272,6 @@ sed -i -e 's@^//$url_path@$url_path@g' $location/cacti/include/config.php
 
 
 fi
-##Adding Maria DB conf 
-echo "innodb_flush_log_at_timeout = 4" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "innodb_read_io_threads = 34"   >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "innodb_write_io_threads = 17" >> /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "max_heap_table_size = 70M"    >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "tmp_table_size = 70M"         >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "join_buffer_size = 130M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "innodb_buffer_pool_size = 250M" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "innodb_io_capacity = 5000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "innodb_io_capacity_max = 10000" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "innodb_file_format = Barracuda" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "innodb_large_prefix = 1" >>  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 
 
