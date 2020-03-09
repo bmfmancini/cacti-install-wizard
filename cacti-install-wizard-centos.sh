@@ -50,12 +50,10 @@ sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config
 
 
 #Download chosen release
-echo "here are some of the current cacti release versions
-release/1.2.10
-release/1.2.9
-release/1.2.8
-release/1.2.7
-"
+echo "here are some of the current cacti release versions"
+
+git ls-remote --tags https://github.com/Cacti/cacti|grep 'release/[[:digit:]\.]*$'|tail -10|awk '{print $2}'|tr 'refs/tags/release' ' '|sed 's/^ *//;s/ *$//'
+
 
 echo  "which release would you like to download ? Hit enter for latest"
 read version
