@@ -10,7 +10,11 @@ chmod +x cacti-setup-wizard.sh <br>
 RUN THE SCRIPT AS ROOT!!
 
 
-The script also works on RHEL however you MUST enable EPEL and ensure its working
+The script also works on RHEL however you MUST enable EPEL prior to running the script and ensure its working
+to enable RHEL EPEL reports you can use the following command 
+
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
 
 
 - features are
