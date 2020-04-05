@@ -395,6 +395,7 @@ then
 echo "downloadinglatest version of spine  and compling "
 git clone https://github.com/Cacti/spine.git
 cd spine
+chmod + x bootstrap
 ./bootstrap
 ./configure
 make
