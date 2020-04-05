@@ -82,6 +82,7 @@ yum install -y gcc mysql-devel net-snmp-devel autoconf automake libtool dos2unix
 echo "downloading and compling spine"
 git clone https://github.com/Cacti/spine.git
 cd spine
+chmod +x bootstrap
 ./bootstrap
 ./configure
 make
@@ -395,7 +396,7 @@ then
 echo "downloadinglatest version of spine  and compling "
 git clone https://github.com/Cacti/spine.git
 cd spine
-chmod + x bootstrap
+chmod +x bootstrap
 ./bootstrap
 ./configure
 make
@@ -408,6 +409,7 @@ else
 wget https://github.com/Cacti/spine/archive/release/$version.zip
 unzip $version.zip
 cd spine-release-$version
+chmod +x bootstrap
 ./bootstrap
 ./configure
 make
