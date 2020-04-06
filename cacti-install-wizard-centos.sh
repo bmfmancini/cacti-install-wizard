@@ -137,7 +137,7 @@ firewall-cmd --reload
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [$timezone == ""] 
+if [ $timezone = "" ] 
 then
 
 
@@ -145,7 +145,7 @@ echo "date.timezone =" US/Central >> /etc/php.ini
 else
 
 
-echo "date.timezone =" $timezone >> /etc/php.ini
+echo "date.timezone =" "$timezone" >> /etc/php.ini
 
 fi  
 
