@@ -60,7 +60,7 @@ read version
 
 if  [ "$version" == "" ]
 then
-git clone https://github.com/Cacti/cacti.git
+git clone -b 1.2.x https://github.com/Cacti/cacti.git
 
 
 else 
