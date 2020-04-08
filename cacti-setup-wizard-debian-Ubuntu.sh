@@ -440,7 +440,7 @@ currentpath="/var/www/html"
 fi
 
 echo "backing up DB"
-mysql -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
+mysqldump -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
 
 
 
