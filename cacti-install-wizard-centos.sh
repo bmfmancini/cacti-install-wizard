@@ -472,7 +472,7 @@ read currentpath
 
 
 echo "backing up DB"
-mysql -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
+mysqldump -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
 
 #echo "backup current install files"
 #cp -R $currentpath .
