@@ -454,7 +454,7 @@ fi
 function cacti_upgrade () {
 
 echo "Stopping cron service"
-systemctl stop cron
+systemctl stop crond
 
 
 echo "this option will upgrade you existing cacti installation
@@ -519,7 +519,7 @@ echo "once you have confirmed everything is working remove the backup from /tmp"
 
 
 
-systemctl start cron
+systemctl start crond
 
 }
 
