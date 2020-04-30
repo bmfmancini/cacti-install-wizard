@@ -336,7 +336,7 @@ systemctl restart apache2
 
 
 
-echo "The setup has completed you can now either install cacti via the CLI or access the websetup to continue install via CLI type yes"
+echo "The setup has completed you can now either install cacti via the CLI or access the websetup to continue install via CLI type yes if this fails please complete via web console"
 read installanswer
 if [[  $installanswer == "yes" ]]
 then 
