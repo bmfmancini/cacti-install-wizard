@@ -372,7 +372,14 @@ systemctl restart httpd
 systemctl restart mariadb
 
 
-echo "Installation completed !"
+echo "The setup has completed you can now either install cacti via the CLI or access the websetup to continue install via CLI type yes"
+read installanswer
+if [[  $installanswer == "yes" ]]
+then 
+php $location/cacti/cli/install_cacti.php --accept-eula --install -d
+else 
+echo "please complete install on web console"
+fi
 
 
 }
@@ -500,7 +507,6 @@ cp $backpath/cacti/include/config.php $currentpath/cacti/include/config.php
 echo "Moving plugin files back into new cacti folder"
 cp -R $backpath/cacti/plugins/* $currentpath/cacti/plugins/
 
-chown -R apache:apache $currentpath
 
 
 echo "what system user do you run cacti as ? usually www-data"
