@@ -467,14 +467,13 @@ echo "specify your current db password"
 read currentdbpwd
 echo "specify your cacti install path usually /var/www/html"
 read currentpath
-
+echo "specify a backup path to backup cacti files"
+read backpath
 
 
 echo "backing up DB"
 mysqldump -u $currentdbuser -p $currentdbpassword   $currentdb > cacti_db_backup.sql
 
-#echo "backup current install files"
-#cp -R $currentpath .
 
 
 echo  "which release would you like to upgrade to? Hit enter for latest"
@@ -492,14 +491,14 @@ mv cacti-release-$version cacti
 fi
 
 
-mv $currentpath/cacti  /tmp
+mv $currentpath/cacti  $backpath
 mv cacti $currentpath
 
 echo "adding old config.php file into new cacti folder"
-cp /tmp/cacti/include/config.php $currentpath/cacti/include/config.php
+cp $backpath/cacti/include/config.php $currentpath/cacti/include/config.php
 
 echo "Moving plugin files back into new cacti folder"
-cp -R /tmp/cacti/plugins/* $currentpath/cacti/plugins/
+cp -R $backpath/cacti/plugins/* $currentpath/cacti/plugins/
 
 chown -R apache:apache $currentpath
 
@@ -511,9 +510,9 @@ chown -R $cactiuser:$cactiuser $currentpath/cacti
 
 
 
-echo "cacti has been upgraded to  " + $version
-echo " a backup of your previous release has been made to /tmp"
-echo "once you have confirmed everything is working remove the backup from /tmp"
+echo "cacti has been upgraded to  "  $version
+echo " a backup of your previous release has been made to"  $backpath
+echo "once you have confirmed everything is working remove the backup from"  $backpath
 
 
 
