@@ -532,6 +532,16 @@ echo "once you have confirmed everything is working remove the backup from"  $ba
 
 systemctl start crond
 
+
+echo "Would you like to update spine ? hit enter to skip"
+read spineupdate
+
+if  [ "$spineupdate" == "yes" ]
+then
+spine_install
+else
+echo "upgrade complete"
+fi
 }
 
 
