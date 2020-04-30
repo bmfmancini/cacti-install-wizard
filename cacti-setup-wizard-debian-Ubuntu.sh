@@ -336,10 +336,16 @@ systemctl restart apache2
 
 
 
+echo "The setup has completed you can now either install cacti via the CLI or access the websetup to continue install via CLI type yes"
+read installanswer
+if [[  $installanswer == "yes" ]]
+then 
+php $location/cacti/cli/install_cacti.php --accept-eula --install -d
+else 
+echo "please complete install on web console"
+fi
 
 
-
-echo "Cacti installation complete !"
 
 
 }
@@ -438,9 +444,15 @@ if [  "$currentpath" == "" ]
 then 
 currentpath="/var/www/html"
 fi
+echo "specify a backup path to backup cacti files default is /tmp"
+read backpath
+if [  "$backpath" == "" ]
+then
+backpath="/tmp"
+fi
 
 echo "backing up DB"
-mysqldump -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
+mysqldump -u $currentdbuser -p $currentdbpassword   $currentdb > cacti_db_backup.sql
 
 
 
@@ -459,14 +471,14 @@ mv cacti-release-$version cacti
 fi
 
 
-mv $currentpath/cacti  /tmp
+mv $currentpath/cacti  $backpath
 mv cacti $currentpath
 
 echo "adding old config.php file into new cacti folder"
-cp /tmp/cacti/include/config.php $currentpath/cacti/include/config.php
+cp $backpath/cacti/include/config.php $currentpath/cacti/include/config.php
 
 echo "Moving plugin files back into new cacti folder"
-cp -R /tmp/cacti/plugins/* $currentpath/cacti/plugins/
+cp -R $backpath/cacti/plugins/* $currentpath/cacti/plugins/
 
 
 
@@ -482,8 +494,8 @@ chown -R $cactiuser:$cactiuser $currentpath/cacti
 
 
 echo "cacti has been upgraded to  " + $version
-echo " a backup of your previous release has been made to /tmp"
-echo "once you have confirmed everything is working remove the backup from /tmp"
+echo " a backup of your previous release has been made to " $backpath
+echo "once you have confirmed everything is working remove the backup from" $backpath
 
 
 
