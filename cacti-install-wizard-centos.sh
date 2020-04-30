@@ -137,7 +137,7 @@ firewall-cmd --reload
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [ $timezone = "" ] 
+if [ $timezone == "" ] 
 then
 
 
@@ -340,10 +340,8 @@ echo "this script can download the following plugins monitor,thold would you lik
 read plugins
  if [[ $plugins = "yes" ]]
   then
-   git clone https://github.com/Cacti/plugin_thold.git thold
+   git clone https://github.com/Cacti/plugin_thold.git thold thold
     git clone https://github.com/Cacti/plugin_monitor.git monitor
-   chown -R $user:$user thold
-    chown -R $user:$user monitor
      mv thold $location/cacti/plugins
       mv monitor $location/cacti/plugins
 else
@@ -471,8 +469,9 @@ echo "specify your cacti install path usually /var/www/html"
 read currentpath
 
 
+
 echo "backing up DB"
-mysqldump -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
+mysqldump -u $currentdbuser -p $currentdbpassword   $currentdb > cacti_db_backup.sql
 
 #echo "backup current install files"
 #cp -R $currentpath .
@@ -483,7 +482,7 @@ read version
 
 if  [ "$version" == "" ]
 then
-git clone https://github.com/Cacti/cacti.git
+git clone -b 1.2.x https://github.com/Cacti/cacti.git
 
 
 else 
@@ -502,7 +501,7 @@ cp /tmp/cacti/include/config.php $currentpath/cacti/include/config.php
 echo "Moving plugin files back into new cacti folder"
 cp -R /tmp/cacti/plugins/* $currentpath/cacti/plugins/
 
-chown -R www-data:www-data $currentpath
+chown -R apache:apache $currentpath
 
 
 echo "what system user do you run cacti as ? usually www-data"
