@@ -472,11 +472,18 @@ echo "specify your database name"
 read currentdb
 echo "specify your current db password"
 read currentdbpwd
-echo "specify your cacti install path usually /var/www/html"
+echo "specify your cacti install path usually /var/www/html hit enter to accept default"
 read currentpath
-echo "specify a backup path to backup cacti files"
+if [  "$currentpath" == "" ]
+then 
+currentpath="/var/www/html"
+fi
+echo "specify a backup path to backup cacti files default is /tmp"
 read backpath
-
+if [  "$backpath" == "" ]
+then
+backpath="/tmp"
+fi
 
 echo "backing up DB"
 mysqldump -u $currentdbuser -p $currentdbpassword   $currentdb > cacti_db_backup.sql
