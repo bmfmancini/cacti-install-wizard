@@ -21,7 +21,7 @@
 
 
 echo "this script requires git"
-apt-get install git unzip -y
+apt-get install git  -y
 
 
 
@@ -50,8 +50,8 @@ git clone -b 1.2.x https://github.com/Cacti/cacti.git
 
 
 else 
-wget https://github.com/Cacti/cacti/archive/release/$version.zip
-unzip $version 
+wget https://github.com/Cacti/cacti/archive/release/$version.tar.gz
+unzip $version.tar.gz 
 mv cacti-release-$version cacti
 fi
 
