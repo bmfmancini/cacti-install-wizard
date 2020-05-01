@@ -32,8 +32,8 @@ sudo su  ; fi
 
 
 
-echo "this script requires git and unzip"
-yum install -y git unzip
+echo "this script requires git"
+yum install -y git
 
 
 
@@ -65,8 +65,8 @@ git clone -b 1.2.x https://github.com/Cacti/cacti.git
 
 else 
 yum install -y wget unzip
-wget https://github.com/Cacti/cacti/archive/release/$version.zip
-unzip $version 
+wget https://github.com/Cacti/cacti/archive/release/$version.tar.gz
+tar -xvf  $version.tar.gz 
 mv cacti-release-$version cacti
 fi
 
