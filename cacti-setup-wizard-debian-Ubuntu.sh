@@ -51,7 +51,7 @@ git clone -b 1.2.x https://github.com/Cacti/cacti.git
 
 else 
 wget https://github.com/Cacti/cacti/archive/release/$version.tar.gz
-unzip $version.tar.gz 
+tar -xvf $version.tar.gz 
 mv cacti-release-$version cacti
 fi
 
