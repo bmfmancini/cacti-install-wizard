@@ -361,7 +361,7 @@ if [$version = ""]
 then
 
 echo "downloadinglatest version of spine  and compling "
-git clone https://github.com/Cacti/spine.git
+git clone https://github.com/Cacti/spine.git spine
 cd spine
 ./bootstrap
 ./configure
