@@ -32,8 +32,8 @@ sudo su  ; fi
 
 
 
-echo "this script requires git and unzip"
-yum install -y git unzip
+echo "this script requires git"
+yum install -y git
 
 
 
@@ -60,13 +60,13 @@ read version
 
 if  [ "$version" == "" ]
 then
-git clone https://github.com/Cacti/cacti.git
+git clone -b 1.2.x https://github.com/Cacti/cacti.git
 
 
 else 
 yum install -y wget unzip
-wget https://github.com/Cacti/cacti/archive/release/$version.zip
-unzip $version 
+wget https://github.com/Cacti/cacti/archive/release/$version.tar.gz
+tar -xvf  $version.tar.gz 
 mv cacti-release-$version cacti
 fi
 
@@ -82,6 +82,7 @@ yum install -y gcc mysql-devel net-snmp-devel autoconf automake libtool dos2unix
 echo "downloading and compling spine"
 git clone https://github.com/Cacti/spine.git
 cd spine
+chmod +x bootstrap
 ./bootstrap
 ./configure
 make
@@ -136,7 +137,7 @@ firewall-cmd --reload
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [$timezone == ""] 
+if [$timezone = ""] 
 then
 
 
@@ -144,7 +145,7 @@ echo "date.timezone =" US/Central >> /etc/php.ini
 else
 
 
-echo "date.timezone =" $timezone >> /etc/php.ini
+echo "date.timezone =" "$timezone" >> /etc/php.ini
 
 fi  
 
@@ -339,10 +340,8 @@ echo "this script can download the following plugins monitor,thold would you lik
 read plugins
  if [[ $plugins = "yes" ]]
   then
-   git clone https://github.com/Cacti/plugin_thold.git thold
+   git clone https://github.com/Cacti/plugin_thold.git thold thold
     git clone https://github.com/Cacti/plugin_monitor.git monitor
-   chown -R $user:$user thold
-    chown -R $user:$user monitor
      mv thold $location/cacti/plugins
       mv monitor $location/cacti/plugins
 else
@@ -373,7 +372,14 @@ systemctl restart httpd
 systemctl restart mariadb
 
 
-echo "Installation completed !"
+echo "The setup has completed you can now either install cacti via the CLI or access the websetup to continue install via CLI type yes"
+read installanswer
+if [[  $installanswer == "yes" ]]
+then 
+php $location/cacti/cli/install_cacti.php --accept-eula --install -d
+else 
+echo "please complete install on web console"
+fi
 
 
 }
@@ -395,6 +401,7 @@ then
 echo "downloadinglatest version of spine  and compling "
 git clone https://github.com/Cacti/spine.git
 cd spine
+chmod +x bootstrap
 ./bootstrap
 ./configure
 make
@@ -407,6 +414,7 @@ else
 wget https://github.com/Cacti/spine/archive/release/$version.zip
 unzip $version.zip
 cd spine-release-$version
+chmod +x bootstrap
 ./bootstrap
 ./configure
 make
@@ -451,7 +459,7 @@ fi
 function cacti_upgrade () {
 
 echo "Stopping cron service"
-systemctl stop cron
+systemctl stop crond
 
 
 echo "this option will upgrade you existing cacti installation
@@ -464,15 +472,22 @@ echo "specify your database name"
 read currentdb
 echo "specify your current db password"
 read currentdbpwd
-echo "specify your cacti install path usually /var/www/html"
+echo "specify your cacti install path usually /var/www/html hit enter to accept default"
 read currentpath
-
+if [  "$currentpath" == "" ]
+then 
+currentpath="/var/www/html"
+fi
+echo "specify a backup path to backup cacti files default is /tmp"
+read backpath
+if [  "$backpath" == "" ]
+then
+backpath="/tmp"
+fi
 
 echo "backing up DB"
-mysql -u $currentdbuser -p $currentdbpassword + " " $currentdb > cacti_db_backup.sql
+mysqldump -u $currentdbuser -p $currentdbpassword   $currentdb > cacti_db_backup.sql
 
-#echo "backup current install files"
-#cp -R $currentpath .
 
 
 echo  "which release would you like to upgrade to? Hit enter for latest"
@@ -480,7 +495,7 @@ read version
 
 if  [ "$version" == "" ]
 then
-git clone https://github.com/Cacti/cacti.git
+git clone -b 1.2.x https://github.com/Cacti/cacti.git
 
 
 else 
@@ -490,16 +505,15 @@ mv cacti-release-$version cacti
 fi
 
 
-mv $currentpath/cacti  /tmp
+mv $currentpath/cacti  $backpath
 mv cacti $currentpath
 
 echo "adding old config.php file into new cacti folder"
-cp /tmp/cacti/include/config.php $currentpath/cacti/include/config.php
+cp $backpath/cacti/include/config.php $currentpath/cacti/include/config.php
 
 echo "Moving plugin files back into new cacti folder"
-cp -R /tmp/cacti/plugins/* $currentpath/cacti/plugins/
+cp -R $backpath/cacti/plugins/* $currentpath/cacti/plugins/
 
-chown -R www-data:www-data $currentpath
 
 
 echo "what system user do you run cacti as ? usually www-data"
@@ -509,15 +523,25 @@ chown -R $cactiuser:$cactiuser $currentpath/cacti
 
 
 
-echo "cacti has been upgraded to  " + $version
-echo " a backup of your previous release has been made to /tmp"
-echo "once you have confirmed everything is working remove the backup from /tmp"
+echo "cacti has been upgraded to  "  $version
+echo " a backup of your previous release has been made to"  $backpath
+echo "once you have confirmed everything is working remove the backup from"  $backpath
 
 
 
 
-systemctl start cron
+systemctl start crond
 
+
+echo "Would you like to update spine ? hit enter to skip"
+read spineupdate
+
+if  [ "$spineupdate" == "yes" ]
+then
+spine_install
+else
+echo "upgrade complete"
+fi
 }
 
 
