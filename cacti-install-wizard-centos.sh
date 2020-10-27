@@ -546,6 +546,63 @@ fi
 
 
 
+function remote_poller_setup () {
+echo "CAUTION THIS FUNCTION IS STILL IN BETA!!!!"
+echo "This function  will help you setup remote pollers for Cacti this will need to be run on each remote poller"
+
+echo "Enter Cacti DB name"
+read cacti_db
+
+echo "Enter a username for the remote poller"
+read remoteusername
+
+echo "Enter a password for the remote poller user"
+read remotepwd
+
+echo "Enter the IP address of the Main poller"
+read main_poller_ip
+
+
+
+echo "Creating mysql user"
+mysql -u root <<MYSQL_SCRIPT
+GRANT ALL PRIVILEGES ON $cacti_db.* TO '$remoteusername'@'$main_poller_ip' IDENTIFIED BY '$remotepwd';
+MYSQL_SCRIPT
+
+echo "Updating cacti config.php"
+
+
+echo "Enter location of cacti config.php usually in /var/www/html/cacti/include/config.php"
+read location
+
+cp $location/cacti/include/config.php /tmp
+
+sed -i -e 's@^#$rdatabase_type.*@$rdatabase_type = "mysql";@g' $location/cacti/include/config.php
+sed -i -e 's@^#$rdatabase_default.*@$rdatabase_default = '$cacti_db'\;@g' $location/cacti/include/config.php
+sed -i -e 's@^#$rdatabase_hostname.*@$rdatabase_hostname = '$main_poller_ip'@g' $location/cacti/include/config.php
+sed -i -e 's@^#$rdatabase_username.*@$rdatabase_username = '$remoteusername';@g' $location/cacti/include/config.php
+sed -i -e 's@^#$rdatabase_password.*@$rdatabase_password = '$remotepwd';@g' $location/cacti/include/config.php
+
+
+
+
+#if [ $spine_answer == "y" ]
+cp /usr/local/spine/etc/spine.conf /tmp
+sed -i -e 's@^RDB_Host.*@RDB_Host  '$main_poller_ip'@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^RDB_User.*@RDB_User  '$remoteusername'@g' /usr/local/spine/etc/spine.conf
+sed -i -e 's@^RDB_Pass.*@RDB_Pass  '$remotepwd'@g' /usr/local/spine/etc/spine.conf
+
+
+
+
+echo $cacti_db
+echo $remoteusername
+echo $remotepwd
+echo $main_poller_ip
+
+}
+
+
 
 #####Menu 
 
@@ -553,7 +610,7 @@ fi
 
 
 choice='Select a operation: '
-options=("New-installation" "spine-only-installation" "cacti-upgrade" "Quit")
+options=("New-installation" "spine-only-installation" "cacti-upgrade" "Remote Poller Setup" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -566,6 +623,9 @@ do
         "cacti-upgrade")
             cacti_upgrade
             ;;
+	"Remote Poller Setup")
+	   remote_poller_setup
+           ;;
         "Quit")
             break
             ;;
