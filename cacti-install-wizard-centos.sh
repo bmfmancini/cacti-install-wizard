@@ -550,6 +550,7 @@ function remote_poller_setup () {
 echo "CAUTION THIS FUNCTION IS STILL IN BETA!!!!"
 echo "This function  will help you setup remote pollers for Cacti this will need to be run on each remote poller"
 echo "This MUST! be run on the server you intend to be a remote poller"
+echo "You must create the below user on the main poller as well the script will output the commands needed"
 
 echo "Enter Cacti DB name"
 read cacti_db
@@ -595,11 +596,11 @@ sed -i -e 's@^RDB_Pass.*@RDB_Pass  '$remotepwd'@g' /usr/local/spine/etc/spine.co
 
 
 
+echo "You must enter the following commands on the Main poller before the remote poller will work"
+echo "GRANT ALL PRIVILEGES ON $cacti_db.* TO '$remoteusername'@'IP address/DNS of this server' IDENTIFIED BY '$remotepwd';"
 
-echo $cacti_db
-echo $remoteusername
-echo $remotepwd
-echo $main_poller_ip
+
+
 
 }
 
