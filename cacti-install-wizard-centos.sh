@@ -549,6 +549,7 @@ fi
 function remote_poller_setup () {
 echo "CAUTION THIS FUNCTION IS STILL IN BETA!!!!"
 echo "This function  will help you setup remote pollers for Cacti this will need to be run on each remote poller"
+echo "This MUST! be run on the server you intend to be a remote poller"
 
 echo "Enter Cacti DB name"
 read cacti_db
@@ -575,14 +576,14 @@ echo "Updating cacti config.php"
 echo "Enter location of cacti config.php usually in /var/www/html/cacti/include/config.php"
 read location
 
-cp $location/cacti/include/config.php /tmp
+cp $location /tmp
 
-sed -i -e 's@^#$rdatabase_type.*@$rdatabase_type = "mysql";@g' $location/cacti/include/config.php
-sed -i -e 's@^#$rdatabase_default.*@$rdatabase_default = '$cacti_db'\;@g' $location/cacti/include/config.php
-sed -i -e 's@^#$rdatabase_hostname.*@$rdatabase_hostname = '$main_poller_ip'@g' $location/cacti/include/config.php
-sed -i -e 's@^#$rdatabase_username.*@$rdatabase_username = '$remoteusername';@g' $location/cacti/include/config.php
-sed -i -e 's@^#$rdatabase_password.*@$rdatabase_password = '$remotepwd';@g' $location/cacti/include/config.php
-
+sed -i -e 's@^#$rdatabase_type.*@$rdatabase_type = "mysql";@g' $location
+sed -i -e 's@^#$rdatabase_default.*@$rdatabase_default = '$cacti_db'\;@g' $location
+sed -i -e 's@^#$rdatabase_hostname.*@$rdatabase_hostname = '$main_poller_ip'@g' $location
+sed -i -e 's@^#$rdatabase_username.*@$rdatabase_username = '$remoteusername';@g' $location
+sed -i -e 's@^#$rdatabase_password.*@$rdatabase_password = '$remotepwd';@g' $location
+sed -i -e 's@^#$rdatabase_port.*@$rdatabase_port = "3306";@g' "$location"
 
 
 
