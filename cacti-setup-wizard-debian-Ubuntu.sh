@@ -95,7 +95,7 @@ php_version="$(php -v | head -n 1 | cut -d " "  -f 2 | cut -f1-2 -d".")"
 ##Timezone settings needed for cacti
 echo "Enter your PHP time zone i.e America/Toronto  Default is US/Central "
 read timezone
-if [$timezone = ""] 
+if [ $timezone = "" ] 
 then
 
 echo "date.timezone =" US/Central  >> /etc/php/$php_version/cli/php.ini 
