@@ -38,7 +38,7 @@ Document script
 
 BUGS
 
-# July 6th 2021 - Script is not working on Centos 8 will have a fix soon !
+##  July 6th 2021 - Script is not working on Centos 8 will have a fix soon !
 
 any other bugs
 Please let me know!
