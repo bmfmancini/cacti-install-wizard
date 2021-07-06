@@ -38,6 +38,9 @@ Document script
 
 BUGS
 
+# July 6th 2021 - Script is not working on Centos 8 will have a fix soon !
+
+any other bugs
 Please let me know!
 
 
@@ -45,5 +48,7 @@ Check out my video tutorial on using the script !
 
 
 [![Video Tutorial ](http://img.youtube.com/vi/koUcuQT0KIU/0.jpg)](https://youtu.be/koUcuQT0KIU "Video Tutorial")
+
+
 
 
