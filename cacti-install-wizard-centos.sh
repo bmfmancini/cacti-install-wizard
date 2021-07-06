@@ -110,13 +110,13 @@ chmod +x mariadb_repo_setup
 echo "On Centos systems we need to enable EPEL repos"
 yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
 yum install yum-utils -y
-yum-config-manager --enable remi-php72
+yum-config-manager --enable remi-php73
 
 
 
 echo "Downloading PHP modules needed for Cacti install"
 
-yum install  -y rrdtool mariadb-server net-snmp-utils net-snmp  snmpd php php-mysql  php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap php-mc php-posix 
+yum install  -y rrdtool mariadb-server net-snmp-utils   snmpd php php-mysql  php-snmp php-xml php-mbstring php-json php-gd php-gmp php-zip php-ldap php-mc php-posix 
 
 
 
@@ -214,9 +214,13 @@ join_buffer_size = 32M
 innodb_file_per_table = ON
 innodb_large_prefix = 1
 innodb_buffer_pool_size = 250M
-innodb_additional_mem_pool_size = 90M
 innodb_flush_log_at_trx_commit = 2
 innodb_doublewrite = ON
+innodb_flush_log_at_timeout = 3
+innodb_read_io_threads = 32
+innodb_write_io_threads = 16
+innodb_io_capacity = 5000
+innodb_io_capacity_max = 10000
 " >> /etc/my.cnf.d/server.cnf
 
 systemctl restart mariadb
